@@ -1,2 +1,2 @@
 # frontend
-Frontend from PricePal
+Frontend for PricePal made with React
