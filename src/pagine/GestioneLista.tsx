@@ -45,17 +45,6 @@ function GestioneLista({titolo}: Props) {
   return (
     <>
       <p>{titolo}</p>
-      {itemList.length != 0 &&
-        <button onClick={removeAllItems}> Remove all </button>
-      }
-      <ul>
-        {itemList.map((item:string, index:number) => (
-          <li key={index}>
-            {`${item}  `}
-            <button onClick={() => {removeItem(index)}}> x </button>
-            </li>
-        ))}
-      </ul>
 
       <button onClick={addQuantity}>+</button>
       <button onClick={subtractQuantity}>-</button>
@@ -72,6 +61,19 @@ function GestioneLista({titolo}: Props) {
           }
         }}
       />
+
+      {itemList.length != 0 &&
+        <div><button onClick={removeAllItems}> Remove all </button></div>
+      }
+
+      <ul>
+        {itemList.map((item:string, index:number) => (
+          <li key={index}>
+            {`${item}  `}
+            <button onClick={() => {removeItem(index)}}> x </button>
+          </li>
+        ))}
+      </ul>
 
     </>
   )
