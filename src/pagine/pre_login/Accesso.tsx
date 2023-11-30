@@ -1,15 +1,40 @@
+import { useState } from "react";
 
 interface Props {
   func: () => void;
 }
 
-const Login = ({func}: Props) => {
+const Accesso = ({func}: Props) => {
+
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+
   return (
     <div>
-      Login<br />
+
+      Login<br /><br />
+
+      Email<br />
+      <input 
+        type="text" 
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+
+      <br /><br />
+      Password<br />
+      <input 
+        type="text" 
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+
+      <br /><br />
       <button onClick={func}>Accedi</button>
+
     </div>
   )
 }
 
-export default Login
+export default Accesso
