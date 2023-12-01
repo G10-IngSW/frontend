@@ -42,10 +42,18 @@ body {
   background: rgb(40,40,60);
 }
 
+
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  
+}
+
+.preview-lista {
+  background-color: rgb(60,60,80);
+  border-radius: 10px;
+  height: 100px;
+  padding: 10px;
+  margin: 10px;
 }
