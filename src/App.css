@@ -46,6 +46,13 @@ body {
 
 /* Home, colonna liste recenti ------------------------------ */
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
 .preview-lista {
   background-color: rgb(60,60,80);
   border-radius: 10px;
