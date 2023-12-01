@@ -1,4 +1,3 @@
-
 const StoricoCarrelli = () => {
   return (
     <div>StoricoCarrelli</div>
