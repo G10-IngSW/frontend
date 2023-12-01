@@ -1,32 +1,45 @@
+import { useState } from "react";
+import Lista from "../../classi/Lista"
 import PreviewLista from "./componenti/PreviewLista"
-import { useState} from "react"
 import { Link } from "react-router-dom"
 
 const Home = () => {
+
+  const [ultimeListe, setUltimeListe] = useState<Lista[]>([
+    new Lista("lista1", ["lol","a","a"]),
+    new Lista("lista2", ["lol","a","a","a","a"]),
+    new Lista("lista3", ["lol","a","a","a","a","a","a","a","a"]),
+  ]);
+
+
   return (
     <>
           
+
       <h1>Liste recenti</h1>
-      <div>
-        <PreviewLista titolo="lista1" numberOfItems={12}></PreviewLista>
-        <PreviewLista titolo="lista2" numberOfItems={7}></PreviewLista>
-        <PreviewLista titolo="lista3" numberOfItems={182}></PreviewLista>
-      </div>
+      
     
-          <ul>
-            <li>
-              <Link to="/gestione-lista" className="li-navbar-button" id="navbar-gestione-lista-button">
+      
+    
+      <ul>
+
+        {ultimeListe.map((item:Lista, index:number) => (
+          <li key={index}><PreviewLista lista={item}></PreviewLista></li>
+        ))}
+
+        <li key={-1}>
+          <div className="preview-lista">
+            <Link to="/gestione-lista" className="liste-recenti-plus">
               +
-              </Link>
-            </li>
-          </ul>
+            </Link>
+          </div>
+        </li>
+
+      </ul>
 
     </>
   )
 }
 
-/* <Link to="/gestione-lista" className="li-navbar-button" id="navbar-gestione-lista-button">
-              +
-            </Link>*/
 
 export default Home

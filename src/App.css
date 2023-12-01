@@ -6,6 +6,8 @@ body {
   font-size: 30px;
 }
 
+/* Navbar --------------------------------------- */
+
 .ul-navbar {
   padding: 0px;
   margin: 0px;
@@ -42,11 +44,26 @@ body {
   background: rgb(40,40,60);
 }
 
+/* Home, colonna liste recenti ------------------------------ */
 
 .preview-lista {
   background-color: rgb(60,60,80);
   border-radius: 10px;
-  height: 100px;
+  height: 70px;
   padding: 10px;
   margin: 10px;
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+}
+
+.preview-lista:hover {
+  background-color: rgb(70,70,90);
+}
+
+.liste-recenti-plus {
+  text-decoration: none;
+  color: white;
+  font-size: 50px;
+  text-align: center;
 }

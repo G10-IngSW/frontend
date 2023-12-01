@@ -1,14 +1,14 @@
+import Lista from "../../../classi/Lista";
 
 interface Props {
-  titolo: string;
-  numberOfItems: number;  
+  lista: Lista; 
 } 
 
-const PreviewLista = ({titolo, numberOfItems}: Props) => {
+const PreviewLista = ({lista}: Props) => {
   return (
     <div className="preview-lista">
-      {titolo} <br />
-      {`${numberOfItems} items`}
+      {lista.nome} <br />
+      {`${lista.oggetti.length} items`}
     </div>
   )
 }
