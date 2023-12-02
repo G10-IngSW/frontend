@@ -7,19 +7,19 @@ const LayoutApp = () => {
         <ul className="ul-navbar">
 
           <li className="li-navbar">
-            <Link to="/" className="li-navbar-button" id="navbar-home-button">
+            <Link to="/" className="li-navbar-button" >
               Home
             </Link>
           </li>
 
           <li className="li-navbar">
-            <Link to="/gestione-lista" className="li-navbar-button" id="navbar-gestione-lista-button">
-              Gestione lista
+            <Link to="/liste" className="li-navbar-button">
+              Liste
             </Link>
           </li>
 
           <li className="li-navbar">
-            <Link to="/storico-carrelli" className="li-navbar-button" id="navbar-storico-carrelli-button">
+            <Link to="/storico-carrelli" className="li-navbar-button">
               Storico Carrelli
             </Link>
           </li>

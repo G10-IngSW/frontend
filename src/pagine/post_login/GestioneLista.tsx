@@ -1,17 +1,17 @@
 import {useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
 
 
-interface Props {
-  titolo: string;
-}
 
 
-function GestioneLista({titolo}: Props) {
+function GestioneLista() {
 
   const [itemList, setItemList] = useState<string[]>([]);
   const [textBarContent, setTextBarContent] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(0);
   const [oggettiPrecedenti, setOggettiPrecedenti] = useState<string[]>([""]);
+
+  const {idlista} = useParams();
 
 
   const idUtente = "65607ab6a2e1fab36a735b96";
@@ -96,7 +96,7 @@ function GestioneLista({titolo}: Props) {
 
   return (
     <>
-      <p>{titolo}</p>
+      <p>{idlista}</p>
 
       <button onClick={addQuantity}>+</button>
       <button onClick={subtractQuantity}>-</button>

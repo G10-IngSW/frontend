@@ -1,5 +1,5 @@
 body {
-  background: rgb(20,20,40);
+  background: #000;
   padding: 30px;
   color: white;
   font-family: 'Trebuchet MS';
@@ -11,7 +11,6 @@ body {
 .ul-navbar {
   padding: 0px;
   margin: 0px;
-  background: rgb(10, 10, 20);
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -28,9 +27,9 @@ body {
 }
 
 .li-navbar-button {
-  background: rgb(20,20,40);
+  background: #1e1e1e;
   border-radius: 10px;
-  margin: 10px;
+  margin: 3px;
   padding: 10px;
   text-decoration: none;
   color: white;
@@ -41,7 +40,7 @@ body {
 }
 
 .li-navbar-button:hover {
-  background: rgb(40,40,60);
+  background: #444348;
 }
 
 /* Home, colonna liste recenti ------------------------------ */
@@ -54,7 +53,7 @@ header {
 }
 
 .preview-lista {
-  background-color: rgb(60,60,80);
+  background-color: #1e1e1e;
   border-radius: 10px;
   height: 70px;
   padding: 10px;
@@ -65,12 +64,14 @@ header {
 }
 
 .preview-lista:hover {
-  background-color: rgb(70,70,90);
+  background-color: #444348;
 }
 
-.liste-recenti-plus {
+.crea-lista-plus {
+  margin: auto;
+  width: 100%;
   text-decoration: none;
   color: white;
-  font-size: 50px;
+  font-size: 60px;
   text-align: center;
 }

@@ -7,6 +7,7 @@ import GestioneLista from './pagine/post_login/GestioneLista'
 import PaginaNonTrovata from './pagine/PaginaNonTrovata';
 import StoricoCarrelli from './pagine/post_login/StoricoCarrelli';
 import PreLoginLayout from './pagine/pre_login/PreLoginLayout';
+import Liste from './pagine/post_login/Liste';
 
 
 
@@ -26,8 +27,8 @@ function App() {
           <Routes>
             <Route path="/" element={<LayoutApp />}>
               <Route index element={<Home />} />
-              <Route path="gestione-lista" element={<GestioneLista titolo="Titolo lista" />} />
-              <Route path="storico-carrelli" element={<StoricoCarrelli />} />
+              <Route path="gestione-lista/:idlista" element={<GestioneLista/>} />
+              <Route path="liste" element={<Liste />} />
               <Route path="storico-carrelli" element={<StoricoCarrelli />} />
               <Route path="*" element={<PaginaNonTrovata />} />
             </Route>
