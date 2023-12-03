@@ -16,11 +16,11 @@ const PreLoginLayout = ({func}:Props) => {
       {(() => {
         switch (idSchermata) {
           case 0:
-            return <Paginainiziale func={setIdSchermata}></Paginainiziale>
+            return <Paginainiziale func={setIdSchermata} />
           case 1:
-            return <Accesso func={func} ></Accesso>
+            return <Accesso func={func} />
           case 2:
-            return <Registrazione func={func}></Registrazione>
+            return <Registrazione func={func} />
           default:
             return null
         }

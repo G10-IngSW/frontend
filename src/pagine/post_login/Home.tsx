@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Lista from "../../classi/Lista"
 import PreviewLista from "./componenti/PreviewLista"
-import { Link, useNavigate } from "react-router-dom"
 import CreaLista from "./componenti/CreaLista";
 
 const Home = () => {
