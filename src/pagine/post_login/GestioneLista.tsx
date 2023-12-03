@@ -21,8 +21,9 @@ function GestioneLista() {
 
   useEffect(() => {
 
+    // api per caricare gli oggetti della lista
+
     const getOggettiPrecedenti = async () => {
-      console.log("funz");
       const response = await fetch(`${url}/liste/oggetti/${idUtente}`);
       if (response.ok) {
         console.log("ricevuti gli oggetti precedenti dal DB");
@@ -33,6 +34,10 @@ function GestioneLista() {
 
     getOggettiPrecedenti();
 
+    return () => {
+      //salvare la lista quando viene smontata
+    }
+    
   }, []);
 
 
