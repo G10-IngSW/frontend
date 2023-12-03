@@ -75,3 +75,9 @@ header {
   font-size: 60px;
   text-align: center;
 }
+
+ul {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 0;
+}
