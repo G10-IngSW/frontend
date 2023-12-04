@@ -1,17 +1,14 @@
 import React, { useState } from 'react'
 
 export const GestioneAccount = () => {
-    const [nomeAccount,setNomeAccount] = useState<string>("Mario");
+  const [nomeAccount, setNomeAccount] = useState<string>("Mario");
 
   return (
-    <>
-        <header>
-            <h1 id='left-title'>Pricepal</h1>
-            <h1 id='right-title'>Account</h1>
-        </header>
-        <div>
-            
-        </div>
-    </>
+    <div className="container-gestioneaccount">
+      <button className='gestioneaccount'>Cambia nome</button>
+      <button className='gestioneaccount'>Cambia email</button>
+      <button className='gestioneaccount'>Cambia password</button>
+      <button className='gestioneaccount'>Logout</button>
+    </div>
   )
 }

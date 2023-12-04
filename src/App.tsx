@@ -8,6 +8,7 @@ import PaginaNonTrovata from './pagine/PaginaNonTrovata';
 import StoricoCarrelli from './pagine/post_login/StoricoCarrelli';
 import PreLoginLayout from './pagine/pre_login/PreLoginLayout';
 import Liste from './pagine/post_login/Liste';
+import { GestioneAccount } from './pagine/post_login/GestioneAccount';
 
 
 
@@ -30,6 +31,7 @@ function App() {
               <Route path="gestione-lista/:idlista" element={<GestioneLista/>} />
               <Route path="liste" element={<Liste />} />
               <Route path="storico-carrelli" element={<StoricoCarrelli />} />
+              <Route path="gestione-account" element={<GestioneAccount />}/>
               <Route path="*" element={<PaginaNonTrovata />} />
             </Route>
           </Routes>
