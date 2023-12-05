@@ -1,50 +1,65 @@
 import {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
+import Lista from '../../classi/Lista';
+import { useAppContext } from '../../context';
 
 
 
 
 function GestioneLista() {
 
-  const [itemList, setItemList] = useState<string[]>([]);
+  const listaInCaricamento: Lista = new Lista("tmp_id", "Caricamento...", [], new Date);
+  const listaNuova: Lista = new Lista("nuova_lista_id", "Nuova lista", [], new Date);
+
+  const [lista, setLista] = useState<Lista>(listaInCaricamento);
+
   const [textBarContent, setTextBarContent] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(0);
   const [oggettiPrecedenti, setOggettiPrecedenti] = useState<string[]>([""]);
 
-  const {idlista} = useParams();
+  const {urlIdLista} = useParams();
 
-
-  const idUtente = "65607ab6a2e1fab36a735b96";
-
-  const url = "http://localhost:3000";
-
+  const datiApp = useAppContext();
 
   useEffect(() => {
 
-    // api per caricare gli oggetti della lista
+    // caricare la lista
+    const getListaById = () => {
+      for (var l of datiApp.liste) {
+        console.log("checking ", l.id, " === ", urlIdLista);
+        if (l.id === urlIdLista) return l;
+      }
+      return new Lista("error_id", "ERRORE!", [], new Date);
+    }
 
+    // api per caricare gli oggetti precedentemente inseriti
     const getOggettiPrecedenti = async () => {
-      const response = await fetch(`${url}/liste/oggetti/${idUtente}`);
+      const response = await fetch(`${datiApp.serverUrl}/liste/oggetti/${datiApp.account.id}`);
       if (response.ok) {
         console.log("ricevuti gli oggetti precedenti dal DB");
         const result = await response.json();
-        setOggettiPrecedenti(result[0].oggetti);
+        console.log("result = ", result);
+        setOggettiPrecedenti(result.oggetti[0].oggetti);
       }
     }
 
+    
+    setLista(getListaById());
     getOggettiPrecedenti();
 
     return () => {
-      //salvare la lista quando viene smontata
+      //salvare la lista quando viene smontata. Se è nuova bisogna crearla (basta guardare urlIdLista)
     }
     
   }, []);
 
 
   const addItem = () => {
+    console.log("url_id_lista = ", urlIdLista);
     if (textBarContent != "") {
-      let newItemString: string = `${quantity} ${textBarContent}`;
-      setItemList([...itemList, newItemString]);
+      const newItemString: string = `${quantity} ${textBarContent}`;
+      const newElementi = [...lista.elementi, newItemString];
+      setLista(new Lista(lista.id, lista.titolo, newElementi, new Date));
       if (!(oggettiPrecedenti.includes(textBarContent))) {        
         aggiungiOggettoDatabase();
       }
@@ -54,15 +69,17 @@ function GestioneLista() {
   }
 
   const removeItem = (i: number) => {
-    if (i < 0 || i >= itemList.length) {
+    if (i < 0 || i >= lista.elementi.length) {
         console.error("Indice non valido");
     }
-    const newItemList = [...itemList.slice(0, i), ...itemList.slice(i + 1)];
-    setItemList(newItemList);
+    const newElementi = [...lista.elementi.slice(0, i), ...lista.elementi.slice(i + 1)];
+    setLista(new Lista(lista.id, lista.titolo, newElementi, new Date));
   }
 
   const removeAllItems = () => {
-    setItemList([]);
+    //const date: number = Date.now();
+    //setLista(new Lista(lista.id, lista.titolo, [], Date.now()));
+    let nuovaLista = new Lista(lista.id, lista.titolo, [], new Date);
   }
 
   const addQuantity = () => {
@@ -75,7 +92,7 @@ function GestioneLista() {
 
   const aggiungiOggettoDatabase = async () => {
     try {
-      const response = await fetch(`${url}/liste/oggetti/${idUtente}`, {
+      const response = await fetch(`${datiApp.serverUrl}/liste/oggetti/${datiApp.account.id}`, {
         method:'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -97,11 +114,39 @@ function GestioneLista() {
       console.log("errore nella richiesta: ", error);
     }
   }
+
+
+  // TODO: chiamare questa funzione quando si preme sul tasto "salva lista" e lista.id === "nuova_lista_id"
+  const creaLista = async (accountId: string) => {
+    try {
+      const response = await fetch(`${datiApp.serverUrl}/liste`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          titolo: "Lista di prova 2",
+          elementi: ["aaaa", "bbb", "cc", "d", "eee", "f"],
+          idUtente: accountId,
+          dataUltimaModifica: Date.now(),
+        }),
+      });
+  
+      if (response.ok) {
+        console.log('lista creata');
+      } else {
+        console.log("Lista non creata")
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
   
 
   return (
     <>
-      <p>{idlista}</p>
+      <p>{lista.titolo}</p>
 
       <button onClick={addQuantity}>+</button>
       <button onClick={subtractQuantity}>-</button>
@@ -119,12 +164,12 @@ function GestioneLista() {
         }}
       />
 
-      {itemList.length != 0 &&
+      {lista.elementi.length != 0 &&
         <div><button onClick={removeAllItems}> Remove all </button></div>
       }
 
       <ul>
-        {itemList.map((item:string, index:number) => (
+        {lista.elementi.map((item:string, index:number) => (
           <li key={index}>
             {`${item}  `}
             <button onClick={() => {removeItem(index)}}> x </button>

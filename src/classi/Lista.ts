@@ -1,12 +1,14 @@
 class Lista {
   id: string;
-  nome: string;
-  oggetti: string[];
+  titolo: string;
+  elementi: string[];
+  dataUltimaModifica: Date;
 
-  constructor(id:string, nome: string, oggetti: string[]) {
+  constructor(id:string, titolo: string, elementi: string[], dataUltimaModifica: Date) {
     this.id = id;
-    this.nome = nome;
-    this.oggetti = oggetti;
+    this.titolo = titolo;
+    this.elementi = elementi;
+    this.dataUltimaModifica = dataUltimaModifica;
   }
 
 }

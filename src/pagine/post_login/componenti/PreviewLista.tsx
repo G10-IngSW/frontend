@@ -16,8 +16,8 @@ const PreviewLista = ({ lista }: Props) => {
         navigate(`/gestione-lista/${lista.id}`, { replace: true });
       }}
     >
-      {lista.nome} <br />
-      {`${lista.oggetti.length} items`}
+      {lista.titolo} <br />
+      {`${lista.elementi.length} items`}
     </div>
   );
 };
