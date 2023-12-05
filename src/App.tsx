@@ -12,6 +12,8 @@ import Account from './classi/Account';
 import Lista from './classi/Lista';
 import { AppContext } from './context';
 import DatiApp from './classi/DatiApp';
+import { GestioneAccount } from './pagine/post_login/GestioneAccount';
+
 
 
 
@@ -71,6 +73,7 @@ function App() {
               <Route path="gestione-lista/:idlista" element={<GestioneLista/>} />
               <Route path="liste" element={<Liste />} />
               <Route path="storico-carrelli" element={<StoricoCarrelli />} />
+              <Route path="gestione-account" element={<GestioneAccount />}/>
               <Route path="*" element={<PaginaNonTrovata />} />
             </Route>
           </Routes>

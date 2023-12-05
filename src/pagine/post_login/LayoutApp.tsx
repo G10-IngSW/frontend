@@ -1,8 +1,10 @@
 import { Outlet, Link } from "react-router-dom";
+import Header from "./componenti/Header";
 
 const LayoutApp = () => {
   return (
     <>
+      <Header/>
       <NavBar />
 
       <Outlet />

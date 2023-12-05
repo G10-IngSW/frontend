@@ -1,6 +1,6 @@
 body {
   background: #000;
-  padding: 30px;
+  padding: 0;
   color: white;
   font-family: 'Trebuchet MS';
   font-size: 30px;
@@ -74,4 +74,61 @@ header {
   color: white;
   font-size: 60px;
   text-align: center;
+}
+
+ul {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 0;
+}
+
+/*header styling*/
+
+#Pricepal-title {
+  /*font color orange*/
+  color: #ff8c00;
+
+}
+
+#disposizione-header {
+  /*disponi gli i due elementi del div orizzontalmente ai lati opposti dello schermo*/
+  /**/
+  background-color: #1e1e1e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  height: 20px;
+
+}
+
+#disposizione-accountbutton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+#img-IconaUtente {
+  /*dimensione icona utente*/
+  width: 50px;
+  height: 50px;
+}
+
+/*gestione account*/
+
+.container-gestioneaccount {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.gestioneaccount-button {
+  padding: 10px;
+  text-align: center;
+  background-color: #3498db;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }
