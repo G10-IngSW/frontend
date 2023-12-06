@@ -4,14 +4,14 @@ import Lista from "./Lista";
 class DatiApp {
   serverUrl: string;
   account: Account;
-  setAccount: React.Dispatch<React.SetStateAction<Account>>;
+  setAccount: (newAccount:Account) => void;
   liste: Lista[];
   setListe: React.Dispatch<React.SetStateAction<Lista[]>>;
 
   constructor(
     serverUrl: string,
     account: Account,
-    setAccount: React.Dispatch<React.SetStateAction<Account>>,
+    setAccount: (newAccount:Account) => void,
     liste: Lista[],
     setListe: React.Dispatch<React.SetStateAction<Lista[]>>
   ) {

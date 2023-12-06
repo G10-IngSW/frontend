@@ -19,20 +19,25 @@ import { GestioneAccount } from './pagine/post_login/GestioneAccount';
 
 function App() {
 
-  const idMario = "656a474da0cc5abf3cccd739";
 
   const accountInCaricamento: Account = new Account("tmp_id", "Caricamento...", "tmp_email");
 
   const [account, setAccount] = useState<Account>(accountInCaricamento);
   const [liste, setListe] = useState<Lista[]>([]);
 
-  const datiApp: DatiApp = new DatiApp("http://localhost:3000", account, setAccount, liste, setListe);
-
-
-  const collegaAccount = () => {
-    setAccount(new Account(idMario, "MarioFinto", "email@finta.it"));
-    caricaListe(idMario);
+  
+  const setAccountAndUpdateLists = (newAccount: Account) => {
+    setAccount(newAccount);
+    caricaListe(newAccount.id);
   }
+  
+  const datiApp: DatiApp = new DatiApp("http://localhost:3000", account, setAccountAndUpdateLists, liste, setListe);
+  
+  // TMP!!!!
+  const collegaAccount = () => {
+    setAccountAndUpdateLists(new Account("656a474da0cc5abf3cccd739", "MarioFinto", "email@finta.it"));
+  }
+
 
   // serve il parametro perchè setAccount non è immediata, non possiamo leggere account.id
   const caricaListe = async (accountId: string) => { 
