@@ -138,3 +138,56 @@ ul {
   border: none;
   cursor: pointer;
 }
+
+
+/*Pagina iniziale*/
+
+#titolo-paginainiziale {
+  color: #ff5716;
+  font-size: 120px;
+  text-align: center;
+  /*underline the text*/
+  text-decoration: underline;
+  margin: 2%;
+  margin-bottom: 5px;
+}
+
+#sottotitolo-paginainiziale {
+  color: #9a9ba0;
+  font-size: 40px;
+  text-align: center;
+  margin-top: 0px;
+}
+
+#box-paginainiziale {
+  /*put the box in the center*/
+  margin: auto;
+  width: 50%;
+  text-align: center;
+  background-color:#1e1e1e;
+  border-radius: 10px;
+  /*dispose the elements vertically*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button-paginainiziale {
+  background-color: #444348;
+  color: white;
+  padding: 0px;
+  text-align: center;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 70%;
+  height: 80px;
+  border-radius: 15px;
+  cursor: pointer;
+  /*remove the button styling*/
+  border: none;
+  outline: none;
+  /*make the text bolder and bigger*/
+  font-weight: bold;
+  font-size: 30px;
+}
