@@ -1,22 +1,22 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../../../context';
 
-type Props = {
-  username : string;
-}
 
-const Header = (props: Props) => {
+const Header = () => {
    
   return (
     <div id='disposizione-header'>
       <h2 id='Pricepal-title'>Pricepal</h2>
-      <AccountButton username='Mario'/> 
+      <AccountButton /> 
     </div>
   )
 }
 
-const AccountButton = ({username} : Props) => {
+const AccountButton = () => {
+
+  const datiApp = useAppContext();
 
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const AccountButton = ({username} : Props) => {
 
   return (
     <div id='disposizione-accountbutton' onClick={openGestioneAccount} >
-      <h4>{username}</h4>
+      <h4>{datiApp.account.nome}</h4>
       <FontAwesomeIcon icon={faUser} id="img-IconaUtente"/>
     </div>
   )

@@ -18,7 +18,7 @@ const PreLoginLayout = ({func}:Props) => {
           case 0:
             return <Paginainiziale func={setIdSchermata} />
           case 1:
-            return <Accesso func={func} />
+            return <Accesso />
           case 2:
             return <Registrazione func={func} />
           default:

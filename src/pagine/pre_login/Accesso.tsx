@@ -1,16 +1,44 @@
 import { useState } from "react";
+import { useAppContext } from "../../context";
 
-interface Props {
-  func: () => void;
-}
 
-const Accesso = ({func}: Props) => {
+const Accesso = () => {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const datiApp = useAppContext();
+
+  const accedi = async () => {
+    try {
+      const response = await fetch(`${datiApp.serverUrl}/utenti/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+  
+      if (response.ok) {
+        console.log("OK!, response = ", response);
+      } else {
+        console.log("NOT OK!, response = ", response);
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
+
+
+
+
+    
     <div>
 
       Login<br /><br />
@@ -31,7 +59,7 @@ const Accesso = ({func}: Props) => {
       />
 
       <br /><br />
-      <button onClick={func}>Accedi</button>
+      <button onClick={accedi}>Accedi</button>
 
     </div>
   )

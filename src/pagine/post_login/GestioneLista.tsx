@@ -146,7 +146,7 @@ function GestioneLista() {
 
   return (
     <>
-      <p>{lista.titolo}</p>
+      <p>{`${lista.id} ${lista.titolo} ${lista.dataUltimaModifica}`}</p>
 
       <button onClick={addQuantity}>+</button>
       <button onClick={subtractQuantity}>-</button>

@@ -32,7 +32,6 @@ function App() {
   const collegaAccount = () => {
     setAccount(new Account(idMario, "MarioFinto", "email@finta.it"));
     caricaListe(idMario);
-    //creaLista(idMario);
   }
 
   // serve il parametro perchè setAccount non è immediata, non possiamo leggere account.id
@@ -43,13 +42,11 @@ function App() {
         console.log("ricevute le liste dal DB");
         const result = await response.json();
 
-        // TODO: FIX THE DATES!!! -------------------------------------------------------------------------------------
         let listeCaricate: Lista[] = result.liste.map(
-          (item: {_id:string, titolo:string, elementi:string[], data:any}) => 
-          (new Lista(item._id, item.titolo, item.elementi, new Date(item.data)))
+          (item: {_id:string, titolo:string, elementi:string[], idUtente:string, dataUltimaModifica:Date}) => 
+          (new Lista(item._id, item.titolo, item.elementi, item.dataUltimaModifica))
         );
 
-        //const resultObject = result as { message: string, liste: Lista[] };
         setListe(listeCaricate);
         
       } else {
@@ -60,8 +57,6 @@ function App() {
     }
   }
 
-
- 
 
   return (
     <AppContext.Provider value = {datiApp}>
