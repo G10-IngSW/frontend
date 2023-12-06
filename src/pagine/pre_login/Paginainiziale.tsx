@@ -6,11 +6,18 @@ interface Props {
 const Paginainiziale = ({func}:Props) => {
   return (
     <div>
-      PricePal<br />
-      <button onClick={() => {func(1)}}>Accedi</button>
-      <button onClick={() => {func(2)}}>Registrati</button>
+      <h1 id="titolo-paginainiziale">Pricepal</h1>
+      <h4 id="sottotitolo-paginainiziale">Tieni traccia delle tue spese</h4>
+      <div id="box-paginainiziale">
+        <button onClick={() => {func(1)}} className="button-paginainiziale">Accedi</button>
+        <button onClick={() => {func(2)}} className="button-paginainiziale">Registrati</button>
+      </div>
+      
     </div>
   )
 }
 
 export default Paginainiziale
+
+
+/**/

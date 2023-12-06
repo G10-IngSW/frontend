@@ -8,7 +8,10 @@ import { useAppContext } from "../../context";
 const Home = () => {
 
   const datiApp = useAppContext();
-  
+  //most sane javascript logic NON TOCCARE
+  const listeRecenti = datiApp.liste
+  .sort((a : Lista, b : Lista) => new Date(b.dataUltimaModifica).getTime() - new Date(a.dataUltimaModifica).getTime())
+  .slice(0, 3);
 
   return (
     <>
@@ -17,7 +20,7 @@ const Home = () => {
       
       <ul>
 
-        {datiApp.liste.map((item:Lista, index:number) => (
+        {listeRecenti.map((item:Lista, index:number) => (
           <li key={index}>
             <PreviewLista lista={item} />
           </li>
