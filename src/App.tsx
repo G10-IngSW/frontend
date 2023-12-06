@@ -70,7 +70,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LayoutApp />}>
               <Route index element={<Home />} />
-              <Route path="gestione-lista/:idlista" element={<GestioneLista/>} />
+              <Route path="gestione-lista/:idListaUrl" element={<GestioneLista/>} />
               <Route path="liste" element={<Liste />} />
               <Route path="storico-carrelli" element={<StoricoCarrelli />} />
               <Route path="gestione-account" element={<GestioneAccount />}/>

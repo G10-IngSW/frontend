@@ -1,6 +1,6 @@
-import React from 'react'
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
-
 
 type Props = {
   username : string;
@@ -21,15 +21,17 @@ const AccountButton = ({username} : Props) => {
   const navigate = useNavigate();
 
   const openGestioneAccount = () => {
-    navigate('/gestione-account',{replace : true});
+    navigate('/gestione-account', {replace : true});
   }
 
   return (
-    <div id='disposizione-accountbutton' onClick={openGestioneAccount}>
+    <div id='disposizione-accountbutton' onClick={openGestioneAccount} >
       <h4>{username}</h4>
-      <img src="C:\Users\andre\Git\frontend\src\assets\IconaUtente.png" alt="icona-utente" id='img-IconaUtente'/>
+      <FontAwesomeIcon icon={faUser} id="img-IconaUtente"/>
     </div>
   )
 }
 
 export default Header;
+
+// style={{color: "#9c9ba0",}}

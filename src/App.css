@@ -4,6 +4,7 @@ body {
   color: white;
   font-family: 'Trebuchet MS';
   font-size: 30px;
+  margin: 0px;
 }
 
 /* Navbar --------------------------------------- */
@@ -11,6 +12,7 @@ body {
 .ul-navbar {
   padding: 0px;
   margin: 0px;
+  margin-top: 3px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -37,6 +39,7 @@ body {
   height: 100%;
   width: 100%;
   text-align: center;
+  cursor: pointer;
 }
 
 .li-navbar-button:hover {
@@ -61,6 +64,7 @@ header {
   text-decoration: none;
   color: white;
   font-size: 30px;
+  cursor: pointer;
 }
 
 .preview-lista:hover {
@@ -74,6 +78,7 @@ header {
   color: white;
   font-size: 60px;
   text-align: center;
+  cursor: pointer;
 }
 
 ul {
@@ -86,20 +91,20 @@ ul {
 
 #Pricepal-title {
   /*font color orange*/
-  color: #ff8c00;
+  color: #ff5716;
+  font-size: 40px;
 
 }
 
 #disposizione-header {
-  /*disponi gli i due elementi del div orizzontalmente ai lati opposti dello schermo*/
-  /**/
+  /*disponi i due elementi del div orizzontalmente ai lati opposti dello schermo*/
   background-color: #1e1e1e;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
   height: 20px;
-
+  color: #9a9ba0;
 }
 
 #disposizione-accountbutton {
@@ -112,8 +117,9 @@ ul {
 
 #img-IconaUtente {
   /*dimensione icona utente*/
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
+  margin-left: 10px;
 }
 
 /*gestione account*/

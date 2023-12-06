@@ -17,7 +17,7 @@ function GestioneLista() {
   const [quantity, setQuantity] = useState<number>(0);
   const [oggettiPrecedenti, setOggettiPrecedenti] = useState<string[]>([""]);
 
-  const {urlIdLista} = useParams();
+  const {idListaUrl} = useParams();
 
   const datiApp = useAppContext();
 
@@ -26,8 +26,7 @@ function GestioneLista() {
     // caricare la lista
     const getListaById = () => {
       for (var l of datiApp.liste) {
-        console.log("checking ", l.id, " === ", urlIdLista);
-        if (l.id === urlIdLista) return l;
+        if (l.id == idListaUrl) return l;
       }
       return new Lista("error_id", "ERRORE!", [], new Date);
     }
@@ -47,15 +46,16 @@ function GestioneLista() {
     setLista(getListaById());
     getOggettiPrecedenti();
 
+
     return () => {
-      //salvare la lista quando viene smontata. Se è nuova bisogna crearla (basta guardare urlIdLista)
+      //salvare la lista quando viene smontata. Se è nuova bisogna crearla (basta guardare idLista)
     }
     
   }, []);
 
 
   const addItem = () => {
-    console.log("url_id_lista = ", urlIdLista);
+    console.log("url_id_lista = ", idListaUrl);
     if (textBarContent != "") {
       const newItemString: string = `${quantity} ${textBarContent}`;
       const newElementi = [...lista.elementi, newItemString];
