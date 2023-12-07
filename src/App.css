@@ -113,6 +113,7 @@ ul {
   align-items: center;
   padding: 10px;
   cursor: pointer;
+
 }
 
 #img-IconaUtente {
@@ -130,13 +131,25 @@ ul {
   gap: 10px;
 }
 
-.gestioneaccount-button {
-  padding: 10px;
+.gestioneaccount {
+ /*copia lo stile di button-paginainiziale*/
+  background-color: #444348;
+  color: white;
+  padding: 0px;
   text-align: center;
-  background-color: #3498db;
-  color: #ffffff;
-  border: none;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 70%;
+  height: 80px;
+  border-radius: 15px;
   cursor: pointer;
+  /*remove the button styling*/
+  border: none;
+  outline: none;
+  /*make the text bolder and bigger*/
+  font-weight: bold;
+  font-size: 30px;
 }
 
 
@@ -190,4 +203,8 @@ ul {
   /*make the text bolder and bigger*/
   font-weight: bold;
   font-size: 30px;
+}
+
+.button-paginainiziale:hover {
+  background-color: #727274;
 }
