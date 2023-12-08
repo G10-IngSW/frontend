@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useAppContext } from "../../context";
 import Account from "../../classi/Account";
 
@@ -8,10 +8,12 @@ const Accesso = () => {
 
   const datiApp = useAppContext();
 
-  const accedi = async () => {
+
+  const accedi = async (e: FormEvent) => {
+    e.preventDefault();
     try {
       console.log(datiApp.serverUrl);
-      const response = await fetch(`${datiApp.serverUrl}/utenti/login`, {
+      const response = await fetch(`${datiApp.serverUrl}/account/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,7 +28,7 @@ const Accesso = () => {
         console.log("OK!, response = ", response);
         const result = await response.json();
         console.log("result: ", result);
-        const resultObject = result.utente as {
+        const resultObject = result.account as {
           _id: string;
           nome: string;
           email: string;
@@ -48,28 +50,23 @@ const Accesso = () => {
 
   return (
     <div>
-      Login
+
+      <form onSubmit={accedi}>
+      <label>
+        Email:
+        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+      </label>
       <br />
+      <label>
+        Password:
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      </label>
       <br />
-      Email
+      <button type="submit">Accedi</button>
       <br />
-      <input
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <br />
-      Password
-      <br />
-      <input
-        type="text"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <br />
-      <button onClick={accedi}>Accedi</button>
+    </form>
+
+
     </div>
   );
 };

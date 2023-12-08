@@ -31,6 +31,7 @@ body {
 .li-navbar-button {
   background: #1e1e1e;
   border-radius: 10px;
+  border: none;
   margin: 3px;
   padding: 10px;
   text-decoration: none;

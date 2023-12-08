@@ -17,7 +17,7 @@ const PreviewLista = ({ lista }: Props) => {
       }}
     >
       {lista.titolo} <br />
-      {`${lista.elementi.length} items`}
+      {`${lista.oggetti.length} items`}
     </div>
   );
 };

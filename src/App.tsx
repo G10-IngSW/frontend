@@ -31,40 +31,45 @@ function App() {
     caricaListe(newAccount.id);
   }
   
-  const datiApp: DatiApp = new DatiApp("http://localhost:3000", account, setAccountAndUpdateLists, liste, setListe);
   
   // TMP!!!!
   const collegaAccount = () => {
     setAccountAndUpdateLists(new Account("656a474da0cc5abf3cccd739", "MarioFinto", "email@finta.it"));
   }
-
-
+  
+  
   // serve il parametro perchè setAccount non è immediata, non possiamo leggere account.id
   const caricaListe = async (accountId: string) => { 
     try {
-      const response = await fetch(`${datiApp.serverUrl}/liste/?idUtente=${accountId}`);
+      const response = await fetch(`${datiApp.serverUrl}/liste/${accountId}`);
       if (response.ok) {
         console.log("ricevute le liste dal DB");
         const result = await response.json();
-
+        console.log("result: ", result);
         let listeCaricate: Lista[] = result.liste.map(
-          (item: {_id:string, titolo:string, elementi:string[], idUtente:string, dataUltimaModifica:Date}) => 
-          (new Lista(item._id, item.titolo, item.elementi, item.dataUltimaModifica))
-        );
-
-        setListe(listeCaricate);
-        
-      } else {
-        console.log("risposta non ok in caricaListe: ", response);
+          (item: {_id:string, titolo:string, oggetti:string[], idAccount:string, dataUltimaModifica:Date}) => 
+          (new Lista(item._id, item.titolo, item.oggetti, item.dataUltimaModifica))
+          );
+          console.log("listeCaricate: ", listeCaricate);
+          
+          setListe(listeCaricate);
+          
+        } else {
+          console.log("risposta non ok in caricaListe: ", response);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
-  }
+    
+    const updateListe = async () => {
+      await caricaListe(account.id);
+    }
 
-
-  return (
-    <AppContext.Provider value = {datiApp}>
+    const datiApp: DatiApp = new DatiApp("http://localhost:3000", account, setAccountAndUpdateLists, liste, updateListe);
+    
+    return (
+      <AppContext.Provider value = {datiApp}>
       {account.id != "tmp_id" ?
         <BrowserRouter>
           <Routes>

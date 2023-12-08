@@ -6,20 +6,20 @@ class DatiApp {
   account: Account;
   setAccount: (newAccount:Account) => void;
   liste: Lista[];
-  setListe: React.Dispatch<React.SetStateAction<Lista[]>>;
+  updateListe: () => void;
 
   constructor(
     serverUrl: string,
     account: Account,
     setAccount: (newAccount:Account) => void,
     liste: Lista[],
-    setListe: React.Dispatch<React.SetStateAction<Lista[]>>
+    updateListe: () => void,
   ) {
     this.serverUrl = serverUrl;
     this.account = account;
     this.setAccount = setAccount;
     this.liste = liste;
-    this.setListe = setListe;
+    this.updateListe = updateListe;
   }
 }
 

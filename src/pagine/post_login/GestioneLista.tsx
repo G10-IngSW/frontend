@@ -1,25 +1,36 @@
 import {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Lista from '../../classi/Lista';
 import { useAppContext } from '../../context';
+//import { faColonSign } from '@fortawesome/free-solid-svg-icons';
 
+type ListaDB = {
+  _id:string, 
+  titolo:string, 
+  oggetti:string[], 
+  idAccount:string, 
+  dataUltimaModifica:Date,
+}
 
 
 
 function GestioneLista() {
 
-  const listaInCaricamento: Lista = new Lista("tmp_id", "Caricamento...", [], new Date);
   const listaNuova: Lista = new Lista("nuova_lista_id", "Nuova lista", [], new Date);
 
-  const [lista, setLista] = useState<Lista>(listaInCaricamento);
+  const [lista, setLista] = useState<Lista>(listaNuova);
+  const [mostralista, setMostraLista] = useState<boolean>(false);
 
   const [textBarContent, setTextBarContent] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(0);
   const [oggettiPrecedenti, setOggettiPrecedenti] = useState<string[]>([""]);
 
+  const navigate = useNavigate();
+
   const {idListaUrl} = useParams();
 
   const datiApp = useAppContext();
+
 
   useEffect(() => {
 
@@ -33,7 +44,7 @@ function GestioneLista() {
 
     // api per caricare gli oggetti precedentemente inseriti
     const getOggettiPrecedenti = async () => {
-      const response = await fetch(`${datiApp.serverUrl}/liste/oggetti/${datiApp.account.id}`);
+      const response = await fetch(`${datiApp.serverUrl}/oggetti/${datiApp.account.id}`);
       if (response.ok) {
         console.log("ricevuti gli oggetti precedenti dal DB");
         const result = await response.json();
@@ -41,14 +52,19 @@ function GestioneLista() {
         setOggettiPrecedenti(result.oggetti[0].oggetti);
       }
     }
-
     
-    setLista(getListaById());
+
+    // codice eseguito alla creazione
+    if (idListaUrl !== "nuova_lista") {
+      setLista(getListaById());
+    }
+    setMostraLista(true);
     getOggettiPrecedenti();
 
 
+    // codice eseguito alla distruzione
     return () => {
-      //salvare la lista quando viene smontata. Se è nuova bisogna crearla (basta guardare idLista)
+      
     }
     
   }, []);
@@ -58,8 +74,8 @@ function GestioneLista() {
     console.log("url_id_lista = ", idListaUrl);
     if (textBarContent != "") {
       const newItemString: string = `${quantity} ${textBarContent}`;
-      const newElementi = [...lista.elementi, newItemString];
-      setLista(new Lista(lista.id, lista.titolo, newElementi, new Date));
+      const newOggetti = [...lista.oggetti, newItemString];
+      setLista(new Lista(lista.id, lista.titolo, newOggetti, new Date));
       if (!(oggettiPrecedenti.includes(textBarContent))) {        
         aggiungiOggettoDatabase();
       }
@@ -69,17 +85,15 @@ function GestioneLista() {
   }
 
   const removeItem = (i: number) => {
-    if (i < 0 || i >= lista.elementi.length) {
+    if (i < 0 || i >= lista.oggetti.length) {
         console.error("Indice non valido");
     }
-    const newElementi = [...lista.elementi.slice(0, i), ...lista.elementi.slice(i + 1)];
-    setLista(new Lista(lista.id, lista.titolo, newElementi, new Date));
+    const newOggetti = [...lista.oggetti.slice(0, i), ...lista.oggetti.slice(i + 1)];
+    setLista(new Lista(lista.id, lista.titolo, newOggetti, new Date));
   }
 
   const removeAllItems = () => {
-    //const date: number = Date.now();
-    //setLista(new Lista(lista.id, lista.titolo, [], Date.now()));
-    let nuovaLista = new Lista(lista.id, lista.titolo, [], new Date);
+    lista.oggetti = [];
   }
 
   const addQuantity = () => {
@@ -92,7 +106,7 @@ function GestioneLista() {
 
   const aggiungiOggettoDatabase = async () => {
     try {
-      const response = await fetch(`${datiApp.serverUrl}/liste/oggetti/${datiApp.account.id}`, {
+      const response = await fetch(`${datiApp.serverUrl}/oggetti/${datiApp.account.id}`, {
         method:'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -115,67 +129,131 @@ function GestioneLista() {
     }
   }
 
-
-  // TODO: chiamare questa funzione quando si preme sul tasto "salva lista" e lista.id === "nuova_lista_id"
-  const creaLista = async (accountId: string) => {
+  
+  const modificaLista = async () => {
     try {
-      const response = await fetch(`${datiApp.serverUrl}/liste`, {
-        method: 'POST',
+      const response = await fetch(`${datiApp.serverUrl}/liste/${lista.id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          titolo: "Lista di prova 2",
-          elementi: ["aaaa", "bbb", "cc", "d", "eee", "f"],
-          idUtente: accountId,
-          dataUltimaModifica: Date.now(),
+          titolo: lista.titolo,
+          oggetti: lista.oggetti,
         }),
       });
   
       if (response.ok) {
-        console.log('lista creata');
+        console.log('lista modificata');
+        datiApp.updateListe();
       } else {
-        console.log("Lista non creata")
+        alertListaNonSalvata();
+        console.log("Lista non modificata");
       }
-
     } catch (error) {
-      console.error(error);
+      alertListaNonSalvata();
+      console.log(error);
     }
+  }
+  
+  
+  // PUO' LANCIARE ERRORI
+  const creaLista = async () => {
+
+    const response = await fetch(`${datiApp.serverUrl}/liste`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        titolo: lista.titolo,
+        oggetti: lista.oggetti,
+        idAccount: datiApp.account.id,
+      }),
+    });
+
+    if (response.ok) {
+      console.log('lista creata');
+      const result = await response.json();
+      const resultLista = result.listaAggiunta as ListaDB;
+      const listaAggiunta = new Lista(resultLista._id, resultLista.titolo, resultLista.oggetti, resultLista.dataUltimaModifica);
+      setLista(listaAggiunta);
+      datiApp.updateListe();
+    } else {
+      console.log("Lista non creata")
+    }
+
   };
+
+  const salvaLista = async () => {
+    if (lista.id === "nuova_lista_id") {
+      try {
+        await creaLista();
+      } catch (error) {
+        alertListaNonSalvata();
+        console.error(error);
+      }
+    } else {
+      modificaLista();
+    }
+  }
+
+  const alertListaNonSalvata = () => {
+    window.alert("ERRORE: Lista non salvata!\nRiprova a salvare la lista, o potrai perdere le ultime modifiche.");
+  }
   
 
   return (
     <>
-      <p>{`${lista.id} ${lista.titolo} ${lista.dataUltimaModifica}`}</p>
+      {
+        mostralista ?
+        <>
+          <p>{`${lista.id} ${lista.titolo} ${lista.dataUltimaModifica}`}</p>
 
-      <button onClick={addQuantity}>+</button>
-      <button onClick={subtractQuantity}>-</button>
+          <input 
+            type="text" 
+            value={lista.titolo}
+            onChange={(e) => setLista(new Lista(lista.id, e.target.value, lista.oggetti, lista.dataUltimaModifica))}
+          />
 
-      <span>{`  ${quantity}  `}</span>
-
-      <input 
-        type="text" 
-        value={textBarContent}
-        onChange={(e) => setTextBarContent(e.target.value)}
-        onKeyDown={(event) => {
-          if (event.key === 'Enter') {
-            addItem();
+          <br />
+    
+          <button onClick={addQuantity}>+</button>
+          <button onClick={subtractQuantity}>-</button>
+    
+          <span>{`  ${quantity}  `}</span>
+    
+          <input 
+            type="text" 
+            value={textBarContent}
+            onChange={(e) => setTextBarContent(e.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                addItem();
+              }
+            }}
+          />
+    
+          {lista.oggetti.length != 0 &&
+            <div><button onClick={removeAllItems}> Remove all </button></div>
           }
-        }}
-      />
+    
+          <ul>
+            {lista.oggetti.map((item:string, index:number) => (
+              <li key={index}>
+                {`${item}  `}
+                <button onClick={() => {removeItem(index)}}> x </button>
+              </li>
+            ))}
+          </ul>
+    
+          <br />
+          <button onClick={salvaLista}>Salva</button>
+        </>
+        :
+        <p>Caricamento...</p>
 
-      {lista.elementi.length != 0 &&
-        <div><button onClick={removeAllItems}> Remove all </button></div>
       }
-
-      <ul>
-        {lista.elementi.map((item:string, index:number) => (
-          <li key={index}>
-            {`${item}  `}
-            <button onClick={() => {removeItem(index)}}> x </button>
-          </li>
-        ))}
-      </ul>
 
     </>
   )

@@ -1,13 +1,13 @@
 class Lista {
   id: string;
   titolo: string;
-  elementi: string[];
+  oggetti: string[];
   dataUltimaModifica: Date;
 
-  constructor(id:string, titolo: string, elementi: string[], dataUltimaModifica: Date) {
+  constructor(id:string, titolo: string, oggetti: string[], dataUltimaModifica: Date) {
     this.id = id;
     this.titolo = titolo;
-    this.elementi = elementi;
+    this.oggetti = oggetti;
     this.dataUltimaModifica = dataUltimaModifica;
   }
 

@@ -6,7 +6,7 @@ const CreaListaButton = () => {
   const navigate = useNavigate();
 
   const creaLista = () => {
-    navigate(`/gestione-lista/nuova-lista}`, { replace: true });
+    navigate(`/gestione-lista/nuova_lista`, { replace: true });
   }
 
   

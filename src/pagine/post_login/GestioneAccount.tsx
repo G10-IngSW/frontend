@@ -68,7 +68,7 @@ const ModificaNomeForm = ({onClose}: Props) => {
   const ModificaNome = async () => {
     const idUtente = datiApp.account.id;
     try {
-      const response = await fetch(`${datiApp.serverUrl}/utenti/modifica/${idUtente}`, {
+      const response = await fetch(`${datiApp.serverUrl}/account/modifica/${idUtente}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -128,9 +128,8 @@ const ModificaEmailForm = ({onClose}:Props) => {
   const datiApp = useAppContext();
 
   const ModificaEmail = async () => {
-    const idUtente = datiApp.account.id;
     try {
-      const response = await fetch(`${datiApp.serverUrl}/utenti/modifica/${idUtente}`, {
+      const response = await fetch(`${datiApp.serverUrl}/account/modifica/${datiApp.account.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -188,9 +187,8 @@ const ModificaPasswordForm = ({onClose}: Props) => {
   const datiApp = useAppContext();
 
   const ModificaPassword = async () => {
-    const idUtente = datiApp.account.id;
     try {
-      const response = await fetch(`${datiApp.serverUrl}/utenti/modifica/${idUtente}`, {
+      const response = await fetch(`${datiApp.serverUrl}/account/modifica/${datiApp.account.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
