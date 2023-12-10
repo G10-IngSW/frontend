@@ -5,6 +5,7 @@ class DatiApp {
   serverUrl: string;
   account: Account;
   setAccount: (newAccount:Account) => void;
+  logout: () => void;
   liste: Lista[];
   updateListe: () => void;
 
@@ -12,12 +13,14 @@ class DatiApp {
     serverUrl: string,
     account: Account,
     setAccount: (newAccount:Account) => void,
+    logout: () => void,
     liste: Lista[],
     updateListe: () => void,
   ) {
     this.serverUrl = serverUrl;
     this.account = account;
     this.setAccount = setAccount;
+    this.logout = logout;
     this.liste = liste;
     this.updateListe = updateListe;
   }

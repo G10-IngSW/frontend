@@ -19,16 +19,17 @@ import { GestioneAccount } from './pagine/post_login/GestioneAccount';
 
 function App() {
 
+  const nullAccount = new Account("id", "nome", "email");
 
-  const accountInCaricamento: Account = new Account("tmp_id", "Caricamento...", "tmp_email");
-
-  const [account, setAccount] = useState<Account>(accountInCaricamento);
+  const [account, setAccount] = useState<Account>(nullAccount);
+  const [autenticato, setAutenticato] = useState<boolean>(false);
   const [liste, setListe] = useState<Lista[]>([]);
 
 
   
   const setAccountAndUpdateLists = (newAccount: Account) => {
     setAccount(newAccount);
+    setAutenticato(true);
     caricaListe(newAccount.id);
   }
   
@@ -64,11 +65,15 @@ function App() {
       await caricaListe(account.id);
     }
 
-    const datiApp: DatiApp = new DatiApp("http://localhost:3000", account, setAccountAndUpdateLists, liste, updateListe);
+    const logout = () => {
+      setAutenticato(false);
+    }
+
+    const datiApp: DatiApp = new DatiApp("http://localhost:3000", account, setAccountAndUpdateLists, logout, liste, updateListe);
     
     return (
       <AppContext.Provider value = {datiApp}>
-      {account.id != "tmp_id" ?
+      {autenticato ?
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LayoutApp />}>

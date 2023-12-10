@@ -46,11 +46,16 @@ function GestioneLista() {
     // api per caricare gli oggetti precedentemente inseriti
     const getOggettiPrecedenti = async () => {
       const response = await fetch(`${datiApp.serverUrl}/oggetti/${datiApp.account.id}`);
+      console.log(response);
       if (response.ok) {
         console.log("ricevuti gli oggetti precedenti dal DB");
         const result = await response.json();
         console.log("result = ", result);
-        setOggettiPrecedenti(result.oggetti[0].oggetti);
+        if (result.oggetti.length == 0) {
+          setOggettiPrecedenti([]);
+        } else {
+          setOggettiPrecedenti(result.oggetti[0].oggetti);
+        }
       }
     }
     

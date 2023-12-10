@@ -1,8 +1,11 @@
-import React, { FormEvent, useState } from 'react'
-import DatiApp from '../../classi/DatiApp'
+import { FormEvent, useState } from 'react';
 import { useAppContext } from '../../context';
+import { useNavigate } from 'react-router-dom';
 
 export const GestioneAccount = () => {
+
+  const datiApp = useAppContext();
+  const navigate = useNavigate();
 
   const [modificaNome, setModificaNome] = useState(false);
   const [modificaEmail, setModificaEmail] = useState(false);
@@ -38,6 +41,10 @@ export const GestioneAccount = () => {
     setModificaPassword(false);
   };
 
+  const logout = () => {
+    datiApp.logout();
+    navigate("/");
+  }
   
 
   return (
@@ -45,7 +52,7 @@ export const GestioneAccount = () => {
       <button className='gestioneaccount' onClick={handleModificaNomeClick}>Cambia nome</button>
       <button className='gestioneaccount' onClick={handleModificaEmailClick}>Cambia email</button>
       <button className='gestioneaccount' onClick={handleModificaPasswordClick}>Cambia password</button>
-      <button className='gestioneaccount'>Logout</button>
+      <button className='gestioneaccount' onClick={logout}>Logout</button>
 
       {modificaNome && <ModificaNomeForm onClose={handleCloseModificaNome} />}
       {modificaEmail && <ModificaEmailForm onClose={handleCloseModificaEmail}/>}
