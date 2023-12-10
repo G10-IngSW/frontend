@@ -9,7 +9,6 @@ const Liste = () => {
 
   return (
     <div>
-      Liste
 
       <ul>
 

@@ -2,7 +2,11 @@ import { FormEvent, useState } from "react";
 import { useAppContext } from "../../context";
 import Account from "../../classi/Account";
 
-const Accesso = () => {
+interface Props {
+  cambiaSchermata: (id:number) => void;
+}
+
+const Accesso = ({cambiaSchermata}: Props) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -50,7 +54,9 @@ const Accesso = () => {
 
   return (
     <div>
-
+      <button onClick={() => cambiaSchermata(0)}>indietro</button>
+      <br /> <br />
+      
       <form onSubmit={accedi}>
       <label>
         Email:

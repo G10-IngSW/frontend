@@ -56,6 +56,11 @@ header {
   padding: 10px;
 }
 
+
+#liste-recenti-h1 {
+  margin: 10px;
+}
+
 .preview-lista {
   background-color: #1e1e1e;
   border-radius: 10px;
@@ -66,10 +71,18 @@ header {
   color: white;
   font-size: 30px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
 }
+
 
 .preview-lista:hover {
   background-color: #444348;
+}
+
+.span-grey-text {
+  color:#9a9ba0;
 }
 
 .crea-lista-plus {

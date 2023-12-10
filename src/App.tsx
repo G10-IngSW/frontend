@@ -1,6 +1,6 @@
 import './App.css'
-import { BrowserRouter, Routes, Route} from "react-router-dom";
-import { useState } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
+import { useEffect, useState } from 'react';
 import LayoutApp from './pagine/post_login/LayoutApp';
 import Home from './pagine/post_login/Home';
 import GestioneLista from './pagine/post_login/GestioneLista'
@@ -25,17 +25,13 @@ function App() {
   const [account, setAccount] = useState<Account>(accountInCaricamento);
   const [liste, setListe] = useState<Lista[]>([]);
 
+
   
   const setAccountAndUpdateLists = (newAccount: Account) => {
     setAccount(newAccount);
     caricaListe(newAccount.id);
   }
   
-  
-  // TMP!!!!
-  const collegaAccount = () => {
-    setAccountAndUpdateLists(new Account("656a474da0cc5abf3cccd739", "MarioFinto", "email@finta.it"));
-  }
   
   
   // serve il parametro perchè setAccount non è immediata, non possiamo leggere account.id
@@ -56,9 +52,11 @@ function App() {
           
         } else {
           console.log("risposta non ok in caricaListe: ", response);
+          setListe([]);
         }
       } catch (error) {
         console.log(error);
+        setListe([]);
       }
     }
     
@@ -84,7 +82,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       :
-        <PreLoginLayout func={collegaAccount}></PreLoginLayout>
+        <PreLoginLayout />
       }
     </AppContext.Provider>
   );

@@ -1,11 +1,10 @@
 import { useState } from "react";
 
 interface Props {
-  func: () => void;
+  cambiaSchermata: (id:number) => void;
 }
 
-
-const CreazioneAccount = ({func}: Props) => {
+const CreazioneAccount = ({cambiaSchermata}: Props) => {
 
   const [email, setEmail] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -13,6 +12,8 @@ const CreazioneAccount = ({func}: Props) => {
 
   return (
     <div>
+      <button onClick={() => cambiaSchermata(0)}>indietro</button>
+      <br /> <br />
 
       Login<br /><br />
 
@@ -42,7 +43,7 @@ const CreazioneAccount = ({func}: Props) => {
       />
 
       <br /><br />
-      <button onClick={func}>Crea account</button>
+      <button onClick={() => {console.log("Questo pulsante non fa niente!")}}>Crea account</button>
 
     </div>
   )
