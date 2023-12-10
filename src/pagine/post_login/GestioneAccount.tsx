@@ -33,12 +33,6 @@ export const GestioneAccount = () => {
     
   };
 
-  const handleLogoutClick = () => {
-    setModificaNome(false);
-    setModificaEmail(false);
-    setModificaPassword(false);
-    
-  }
 
   const handleCloseModificaNome = () => {
     setModificaNome(false);
