@@ -12,6 +12,7 @@ class DatiApp {
   oggettiPrecedenti: string[];
   aggiungiOggettoInLocale: (oggetto: string) => void;
   rimuoviOggettoInLocale: (oggetto: string) => void;
+  modificaListaInLocale: (listaModificata: Lista) => void;
   
 
   constructor(
@@ -24,7 +25,8 @@ class DatiApp {
   rimuoviListaInLocale: (id: string) => void,
   oggettiPrecedenti: string[],
   aggiungiOggettoInLocale: (oggetto: string) => void,
-  rimuoviOggettoInLocale: (oggetto: string) => void
+  rimuoviOggettoInLocale: (oggetto: string) => void,
+  modificaListaInLocale: (listaModificata: Lista) => void
   ) {
     this.serverUrl = serverUrl;
     this.account = account;
@@ -36,6 +38,7 @@ class DatiApp {
     this.oggettiPrecedenti = oggettiPrecedenti;
     this.aggiungiOggettoInLocale = aggiungiOggettoInLocale;
     this.rimuoviOggettoInLocale = rimuoviOggettoInLocale;
+    this.modificaListaInLocale = modificaListaInLocale;
   }
 }
 

@@ -149,8 +149,7 @@ function GestioneLista() {
         const resultLista = result.lista_modificata as ListaDB;
         const listaModificata = new Lista(resultLista._id, resultLista.titolo, resultLista.oggetti, resultLista.dataUltimaModifica);
         setLista(listaModificata);
-        datiApp.rimuoviListaInLocale(lista.id);
-        datiApp.aggiungiListaInLocale(listaModificata);
+        datiApp.modificaListaInLocale(listaModificata);
       } else {
         alertListaNonSalvata();
         console.log("Lista non modificata");

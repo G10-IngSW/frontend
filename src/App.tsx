@@ -94,6 +94,12 @@ function App() {
       setListe(newListe.filter((l:Lista) => l.id !== id));
     }
 
+    const modificaListaInLocale = (listaModificata:Lista) => {
+      let newListe = liste.filter((l:Lista) => l.id !== listaModificata.id)
+      newListe = [...newListe, listaModificata];
+      setListe(newListe);
+    }
+
     const aggiungiOggettoInLocale = (o: string) => {
       console.log("oggetto aggiunto in locale");
       setOggettiPrecedenti([...oggettiPrecedenti, o]);
@@ -115,6 +121,7 @@ function App() {
       oggettiPrecedenti, 
       aggiungiOggettoInLocale,
       rimuoviOggettoInLocale,
+      modificaListaInLocale,
     );
     
     return (
