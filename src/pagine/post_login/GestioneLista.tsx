@@ -23,6 +23,7 @@ function GestioneLista() {
 
   const [textBarContent, setTextBarContent] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(0);
+
   const [oggettiPrecedenti, setOggettiPrecedenti] = useState<string[]>([""]);
 
   const navigate = useNavigate();
@@ -43,21 +44,7 @@ function GestioneLista() {
       return new Lista("error_id", "ERRORE!", [], new Date);
     }
 
-    // api per caricare gli oggetti precedentemente inseriti
-    const getOggettiPrecedenti = async () => {
-      const response = await fetch(`${datiApp.serverUrl}/oggetti/${datiApp.account.id}`);
-      console.log(response);
-      if (response.ok) {
-        console.log("ricevuti gli oggetti precedenti dal DB");
-        const result = await response.json();
-        console.log("result = ", result);
-        if (result.oggetti.length == 0) {
-          setOggettiPrecedenti([]);
-        } else {
-          setOggettiPrecedenti(result.oggetti[0].oggetti);
-        }
-      }
-    }
+    
     
 
     // codice eseguito alla creazione
@@ -65,8 +52,7 @@ function GestioneLista() {
       setLista(getListaById());
     }
     setMostraLista(true);
-    getOggettiPrecedenti();
-
+    setOggettiPrecedenti(datiApp.oggettiPrecedenti);
 
     // codice eseguito alla distruzione
     return () => {
@@ -76,23 +62,28 @@ function GestioneLista() {
   }, []);
 
 
-  const addItem = () => {
+  const addItemFromTextBox = async () => {
     if (textBarContent == "") return;
-
+    addItem(textBarContent);
+  }
+  
+  const addItem = async (item: string) => {
     let newItemString: string;
     if (quantity == 0) {
-      newItemString = textBarContent;
+      newItemString = item;
     } else {
-      newItemString = `${quantity} ${textBarContent}`;
+      newItemString = `${quantity} ${item}`;
     }
     const newOggetti = [...lista.oggetti, newItemString];
     setLista(new Lista(lista.id, lista.titolo, newOggetti, lista.dataUltimaModifica));
-    if (!(oggettiPrecedenti.includes(textBarContent))) {        
+    if (!(oggettiPrecedenti.includes(item))) {        
       aggiungiOggettoDatabase();
+      datiApp.updateOggettiPrecedenti();
+      setOggettiPrecedenti(datiApp.oggettiPrecedenti);
+  
     }
     setTextBarContent("");
-    setQuantity(0);
-    
+    setQuantity(0); 
   }
 
   const removeItem = (i: number) => {
@@ -128,15 +119,15 @@ function GestioneLista() {
       });
 
       if (response.ok) {
-        console.log('oggetto aggiunto');
+        console.log('oggetto aggiunto al DB');
         setOggettiPrecedenti([...oggettiPrecedenti, textBarContent]);
       } else {
         const errordata = await response.json();
-        console.error("Errore nell'aggiunta dell'oggetto: ", errordata);
+        console.error("Errore nell'aggiunta dell'oggetto al DB: ", errordata);
       }
 
     } catch (error) {
-      console.log("errore nella richiesta: ", error);
+      console.log("errore nella richiesta di aggiunta di oggetto al DB: ", error);
     }
   }
 
@@ -157,7 +148,6 @@ function GestioneLista() {
       if (response.ok) {
         console.log('lista modificata');
         const result = await response.json();
-        console.log(result);
         const resultLista = result.lista_modificata as ListaDB;
         const listaModificata = new Lista(resultLista._id, resultLista.titolo, resultLista.oggetti, resultLista.dataUltimaModifica);
         setLista(listaModificata);
@@ -166,12 +156,10 @@ function GestioneLista() {
 
         datiApp.updateListe();
       } else {
-        console.log("BBB");
         alertListaNonSalvata();
         console.log("Lista non modificata");
       }
     } catch (error) {
-      console.log("CCC");
       alertListaNonSalvata();
       console.log(error);
     }
@@ -224,20 +212,24 @@ function GestioneLista() {
   }
 
   const eliminaLista = async () => {
-    const response = await fetch(`${datiApp.serverUrl}/liste/${lista.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      //body: JSON.stringify({}),
-    });
-
-    if (response.ok) {
-      console.log('lista eliminata');
-      datiApp.updateListe();
-      navigate("/");
-    } else {
-      console.log("Lista non eliminata")
+    try {
+      const response = await fetch(`${datiApp.serverUrl}/liste/${lista.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        //body: JSON.stringify({}),
+      });
+  
+      if (response.ok) {
+        console.log('lista eliminata');
+        datiApp.updateListe();
+        navigate("/");
+      } else {
+        console.log("Lista non eliminata");
+      }
+    } catch (error) {
+      console.log("errore nell\'eliminare la lista: ");
     }
   }
   
@@ -268,10 +260,15 @@ function GestioneLista() {
             onChange={(e) => setTextBarContent(e.target.value)}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
-                addItem();
+                addItemFromTextBox();
               }
             }}
           />
+          <button onClick={addItemFromTextBox}>Aggiungi</button>
+
+          <br />
+
+          <OggettiPrecedenti oggettiPrecedenti={oggettiPrecedenti} filtro={textBarContent} addItem={addItem}/>
     
           {lista.oggetti.length != 0 &&
             <div><button onClick={removeAllItems}> Remove all </button></div>
@@ -300,3 +297,45 @@ function GestioneLista() {
 }
 
 export default GestioneLista
+
+interface Props {
+  oggettiPrecedenti: string[];
+  filtro: string;
+  addItem: (i:string) => void;
+}
+
+
+const OggettiPrecedenti = ({oggettiPrecedenti, filtro, addItem}: Props) => {
+
+  function filtra(a: string[]): string[] {
+    const risultato: string[] = [];
+
+    for (const parola of a) {
+      if (parola.startsWith(filtro)) {
+        risultato.push(parola);
+      }
+    }
+
+    return risultato;
+  }
+
+
+
+  return (
+
+  
+
+    <ul>
+      { oggettiPrecedenti.length != 0 &&
+        oggettiPrecedenti.map((item:string, index:number) => (
+          item.startsWith(filtro) ?
+            <li key={index} className='auto-completion-item' onClick={() => addItem(oggettiPrecedenti[index])}>
+              {item}
+            </li>
+          :
+            null
+        ))
+      }
+    </ul>
+  );
+}

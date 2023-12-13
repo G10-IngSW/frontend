@@ -8,6 +8,8 @@ class DatiApp {
   logout: () => void;
   liste: Lista[];
   updateListe: () => void;
+  oggettiPrecedenti: string[];
+  updateOggettiPrecedenti: () => void;
 
   constructor(
     serverUrl: string,
@@ -16,6 +18,8 @@ class DatiApp {
     logout: () => void,
     liste: Lista[],
     updateListe: () => void,
+    oggettiPrecedenti: string[],
+    updateOggettiPrecedenti: () => void,
   ) {
     this.serverUrl = serverUrl;
     this.account = account;
@@ -23,6 +27,8 @@ class DatiApp {
     this.logout = logout;
     this.liste = liste;
     this.updateListe = updateListe;
+    this.oggettiPrecedenti = oggettiPrecedenti;
+    this.updateOggettiPrecedenti = updateOggettiPrecedenti;
   }
 }
 

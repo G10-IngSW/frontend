@@ -10,8 +10,9 @@ const PreviewLista = ({ lista }: Props) => {
   const navigate = useNavigate();
 
   function formattaData(data: Date): string {
-    // I hate typescript
-    const data_tmp = new Date(data);
+    
+    const data_tmp = new Date(data); // I hate typescript
+
     const giorno: number = data_tmp.getDate();
     const mese: number = data_tmp.getMonth() + 1;
     const anno: number = data_tmp.getFullYear();
@@ -21,10 +22,10 @@ const PreviewLista = ({ lista }: Props) => {
     const meseFormattato: string = mese < 10 ? `0${mese}` : `${mese}`;
 
     // Formatta la data come "giorno-mese-anno"
-    const dataFormattata: string = `${giornoFormattato}-${meseFormattato}-${anno}`;
+    const dataFormattata: string = `${giornoFormattato}/${meseFormattato}/${anno}`;
 
     return dataFormattata;
-}
+  }
 
   return (
     <div
@@ -37,7 +38,7 @@ const PreviewLista = ({ lista }: Props) => {
         {lista.titolo} 
         <br /> 
         {lista.oggetti.length} 
-        <span className="span-grey-text"> items </span>
+        <span className="span-grey-text"> oggetti </span>
       </span>
       <span className="span-grey-text">{formattaData(lista.dataUltimaModifica)}</span>
     </div>

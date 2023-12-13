@@ -1,3 +1,14 @@
+
+/* PALETTE
+
+#000
+#1e1e1e con hover #444348
+#444348 con hover #727274
+#9a9ba0
+#ff5716
+
+*/
+
 body {
   background: #000;
   padding: 0;
@@ -167,7 +178,7 @@ ul {
 }
 
 
-/*Pagina iniziale*/
+/*Pagina iniziale ------------------------------------------------------ */
 
 #titolo-paginainiziale {
   color: #ff5716;
@@ -221,4 +232,16 @@ ul {
 
 .button-paginainiziale:hover {
   background-color: #727274;
+  cursor: pointer;
+}
+
+/* Gestione lista */
+
+.auto-completion-item {
+  background-color: #1e1e1e;
+}
+
+.auto-completion-item:hover {
+  background-color: #444348;
+  cursor: pointer;
 }

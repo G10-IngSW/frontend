@@ -1,11 +1,10 @@
 import './App.css'
-import { BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from 'react';
 import LayoutApp from './pagine/post_login/LayoutApp';
 import Home from './pagine/post_login/Home';
 import GestioneLista from './pagine/post_login/GestioneLista'
 import PaginaNonTrovata from './pagine/PaginaNonTrovata';
-import StoricoCarrelli from './pagine/post_login/StoricoCarrelli';
 import PreLoginLayout from './pagine/pre_login/PreLoginLayout';
 import Liste from './pagine/post_login/Liste';
 import Account from './classi/Account';
@@ -24,6 +23,7 @@ function App() {
   const [account, setAccount] = useState<Account>(nullAccount);
   const [autenticato, setAutenticato] = useState<boolean>(false);
   const [liste, setListe] = useState<Lista[]>([]);
+  const [oggettiPrecedenti, setOggettiPrecedenti] = useState<string[]>([]);
 
 
   
@@ -31,6 +31,7 @@ function App() {
     setAccount(newAccount);
     setAutenticato(true);
     caricaListe(newAccount.id);
+    caricaOggettiPrecedenti(newAccount.id);
   }
   
   
@@ -65,11 +66,40 @@ function App() {
       await caricaListe(account.id);
     }
 
+    // api per caricare gli oggetti precedentemente inseriti
+    const caricaOggettiPrecedenti = async (accountId: string) => {
+      const response = await fetch(`${datiApp.serverUrl}/oggetti/${accountId}`);
+      console.log(response);
+      if (response.ok) {
+        console.log("ricevuti gli oggetti precedenti dal DB");
+        const result = await response.json();
+        console.log("result = ", result);
+        if (result.oggetti.length == 0) {
+          await setOggettiPrecedenti([]);
+        } else {
+          await setOggettiPrecedenti(result.oggetti[0].oggetti);
+        }
+      }
+    }
+
+    const updateOggettiPrecedenti = async () => {
+      await caricaOggettiPrecedenti(account.id);
+    }
+
     const logout = () => {
       setAutenticato(false);
     }
 
-    const datiApp: DatiApp = new DatiApp("http://localhost:3000", account, setAccountAndUpdateLists, logout, liste, updateListe);
+    const datiApp: DatiApp = new DatiApp(
+      "https://fuzzy-erin-drawers.cyclic.app", 
+      account, 
+      setAccountAndUpdateLists, 
+      logout, 
+      liste, 
+      updateListe, 
+      oggettiPrecedenti, 
+      updateOggettiPrecedenti
+    );
     
     return (
       <AppContext.Provider value = {datiApp}>
@@ -80,7 +110,6 @@ function App() {
               <Route index element={<Home />} />
               <Route path="gestione-lista/:idListaUrl" element={<GestioneLista/>} />
               <Route path="liste" element={<Liste />} />
-              <Route path="storico-carrelli" element={<StoricoCarrelli />} />
               <Route path="gestione-account" element={<GestioneAccount />}/>
               <Route path="*" element={<PaginaNonTrovata />} />
             </Route>
