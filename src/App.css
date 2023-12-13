@@ -132,6 +132,10 @@ ul {
   color: #9a9ba0;
 }
 
+#disposizione-header:hover{
+  color: rgb(231, 231, 231);
+}
+
 #disposizione-accountbutton {
   display: flex;
   justify-content: space-between;
@@ -151,9 +155,14 @@ ul {
 /*gestione account*/
 
 .container-gestioneaccount {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  /*put the box on the left*/
+  margin: auto;
+  margin-left: 0px;
+  
+  width: 33%;
+  text-align: center;
+  background-color:#1e1e1e;
+  border-radius: 10px;
 }
 
 .gestioneaccount {
@@ -177,6 +186,87 @@ ul {
   font-size: 30px;
 }
 
+.gestioneaccount:hover {
+  background-color: #727274;
+}
+
+#container-form {
+  background-color:#1e1e1e;
+  border-radius: 10px;
+
+  
+ 
+  width: 66%;
+  height: 480px;
+  text-align:left;
+
+}
+
+.bottoniera-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: bottom;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.button-form {
+  background-color: #444348;
+  color: white;
+  padding: 0px;
+  text-align: center;
+  margin: 20px;
+  margin-top: 150px;
+  margin-bottom: 20px;
+  width: 50%;
+  height: 80px;
+  border-radius: 15px;
+  cursor: pointer;
+  /*remove the button styling*/
+  border: none;
+  outline: none;
+  /*make the text bolder and bigger*/
+  font-weight: bold;
+  font-size: 30px;
+
+}
+
+.button-form:hover {
+  background-color: #727274;
+}
+
+.body-form {
+  padding: 10px;
+  margin: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: white;
+  font-size: 20px;
+}
+
+.label-form {
+  font-size: 30px;
+  border-radius: 2px;
+  font-size: large;
+  text-align: left;
+
+}
+
+#disposizione-orizzontale-gestioneaccount {
+  /*disponi i due elementi del div orizzontalmente ai lati opposti dello schermo*/
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  color: #9a9ba0;
+}
+
+.input-form {
+  width: 80%;
+  height: 50px;
+  font-size: 100%;
+  border-radius: 5px;
+}
 
 /*Pagina iniziale ------------------------------------------------------ */
 
