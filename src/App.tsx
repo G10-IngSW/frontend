@@ -62,9 +62,6 @@ function App() {
       }
     }
     
-    const updateListe = async () => {
-      await caricaListe(account.id);
-    }
 
     // api per caricare gli oggetti precedentemente inseriti
     const caricaOggettiPrecedenti = async (accountId: string) => {
@@ -82,12 +79,29 @@ function App() {
       }
     }
 
-    const updateOggettiPrecedenti = async () => {
-      await caricaOggettiPrecedenti(account.id);
-    }
 
     const logout = () => {
       setAutenticato(false);
+    }
+
+    const aggiungiListaInLocale = (l: Lista) => {
+      console.log("lista aggiunta in locale");
+      setListe([...liste, l]);
+    }
+
+    const rimuoviListaInLocale = (id: string) => {
+      let newListe = JSON.parse(JSON.stringify(liste));
+      setListe(newListe.filter((l:Lista) => l.id !== id));
+    }
+
+    const aggiungiOggettoInLocale = (o: string) => {
+      console.log("oggetto aggiunto in locale");
+      setOggettiPrecedenti([...oggettiPrecedenti, o]);
+    }
+
+    const rimuoviOggettoInLocale = (o: string) => {
+      let newOggetti = JSON.parse(JSON.stringify(oggettiPrecedenti));
+      setOggettiPrecedenti(newOggetti.filter((ogg:string) => ogg !== o));
     }
 
     const datiApp: DatiApp = new DatiApp(
@@ -96,9 +110,11 @@ function App() {
       setAccountAndUpdateLists, 
       logout, 
       liste, 
-      updateListe, 
+      aggiungiListaInLocale,
+      rimuoviListaInLocale, 
       oggettiPrecedenti, 
-      updateOggettiPrecedenti
+      aggiungiOggettoInLocale,
+      rimuoviOggettoInLocale,
     );
     
     return (

@@ -7,28 +7,35 @@ class DatiApp {
   setAccount: (newAccount:Account) => void;
   logout: () => void;
   liste: Lista[];
-  updateListe: () => void;
+  aggiungiListaInLocale: (l: Lista) => void;
+  rimuoviListaInLocale: (id: string) => void;
   oggettiPrecedenti: string[];
-  updateOggettiPrecedenti: () => void;
+  aggiungiOggettoInLocale: (oggetto: string) => void;
+  rimuoviOggettoInLocale: (oggetto: string) => void;
+  
 
   constructor(
     serverUrl: string,
-    account: Account,
-    setAccount: (newAccount:Account) => void,
-    logout: () => void,
-    liste: Lista[],
-    updateListe: () => void,
-    oggettiPrecedenti: string[],
-    updateOggettiPrecedenti: () => void,
+  account: Account,
+  setAccount: (newAccount:Account) => void,
+  logout: () => void,
+  liste: Lista[],
+  aggiungiListaInLocale: (l: Lista) => void,
+  rimuoviListaInLocale: (id: string) => void,
+  oggettiPrecedenti: string[],
+  aggiungiOggettoInLocale: (oggetto: string) => void,
+  rimuoviOggettoInLocale: (oggetto: string) => void
   ) {
     this.serverUrl = serverUrl;
     this.account = account;
     this.setAccount = setAccount;
     this.logout = logout;
     this.liste = liste;
-    this.updateListe = updateListe;
+    this.aggiungiListaInLocale = aggiungiListaInLocale;
+    this.rimuoviListaInLocale = rimuoviListaInLocale;
     this.oggettiPrecedenti = oggettiPrecedenti;
-    this.updateOggettiPrecedenti = updateOggettiPrecedenti;
+    this.aggiungiOggettoInLocale = aggiungiOggettoInLocale;
+    this.rimuoviOggettoInLocale = rimuoviOggettoInLocale;
   }
 }
 

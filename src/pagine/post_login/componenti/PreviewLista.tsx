@@ -21,7 +21,7 @@ const PreviewLista = ({ lista }: Props) => {
     const giornoFormattato: string = giorno < 10 ? `0${giorno}` : `${giorno}`;
     const meseFormattato: string = mese < 10 ? `0${mese}` : `${mese}`;
 
-    // Formatta la data come "giorno-mese-anno"
+    // Formatta la data come "giorno/mese/anno"
     const dataFormattata: string = `${giornoFormattato}/${meseFormattato}/${anno}`;
 
     return dataFormattata;

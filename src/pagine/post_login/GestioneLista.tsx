@@ -78,9 +78,6 @@ function GestioneLista() {
     setLista(new Lista(lista.id, lista.titolo, newOggetti, lista.dataUltimaModifica));
     if (!(oggettiPrecedenti.includes(item))) {        
       aggiungiOggettoDatabase();
-      datiApp.updateOggettiPrecedenti();
-      setOggettiPrecedenti(datiApp.oggettiPrecedenti);
-  
     }
     setTextBarContent("");
     setQuantity(0); 
@@ -95,7 +92,7 @@ function GestioneLista() {
   }
 
   const removeAllItems = () => {
-    lista.oggetti = [];
+    setLista(new Lista(lista.id, lista.titolo, [], lista.dataUltimaModifica));
   }
 
   const addQuantity = () => {
@@ -120,7 +117,8 @@ function GestioneLista() {
 
       if (response.ok) {
         console.log('oggetto aggiunto al DB');
-        setOggettiPrecedenti([...oggettiPrecedenti, textBarContent]);
+        setOggettiPrecedenti([...datiApp.oggettiPrecedenti, textBarContent]);
+        datiApp.aggiungiOggettoInLocale(textBarContent);
       } else {
         const errordata = await response.json();
         console.error("Errore nell'aggiunta dell'oggetto al DB: ", errordata);
@@ -146,15 +144,13 @@ function GestioneLista() {
       });
   
       if (response.ok) {
-        console.log('lista modificata');
+        console.log('lista modificata nel DB');
         const result = await response.json();
         const resultLista = result.lista_modificata as ListaDB;
         const listaModificata = new Lista(resultLista._id, resultLista.titolo, resultLista.oggetti, resultLista.dataUltimaModifica);
         setLista(listaModificata);
-        datiApp.updateListe();
-
-
-        datiApp.updateListe();
+        datiApp.rimuoviListaInLocale(lista.id);
+        datiApp.aggiungiListaInLocale(listaModificata);
       } else {
         alertListaNonSalvata();
         console.log("Lista non modificata");
@@ -166,7 +162,6 @@ function GestioneLista() {
   }
   
   
-  // PUO' LANCIARE ERRORI
   const creaLista = async () => {
 
     try {
@@ -186,8 +181,9 @@ function GestioneLista() {
         const result = await response.json();
         const resultLista = result.lista_salvata as ListaDB;
         const listaAggiunta = new Lista(resultLista._id, resultLista.titolo, resultLista.oggetti, resultLista.dataUltimaModifica);
+        console.log("lista creata nel DB")
         setLista(listaAggiunta);
-        datiApp.updateListe();
+        datiApp.aggiungiListaInLocale(listaAggiunta);
       } else {
         throw new Error("Lista non creata");
       }
@@ -222,8 +218,8 @@ function GestioneLista() {
       });
   
       if (response.ok) {
-        console.log('lista eliminata');
-        datiApp.updateListe();
+        console.log('lista eliminata nel DB');
+        datiApp.rimuoviListaInLocale(lista.id);
         navigate("/");
       } else {
         console.log("Lista non eliminata");
@@ -307,24 +303,7 @@ interface Props {
 
 const OggettiPrecedenti = ({oggettiPrecedenti, filtro, addItem}: Props) => {
 
-  function filtra(a: string[]): string[] {
-    const risultato: string[] = [];
-
-    for (const parola of a) {
-      if (parola.startsWith(filtro)) {
-        risultato.push(parola);
-      }
-    }
-
-    return risultato;
-  }
-
-
-
   return (
-
-  
-
     <ul>
       { oggettiPrecedenti.length != 0 &&
         oggettiPrecedenti.map((item:string, index:number) => (
