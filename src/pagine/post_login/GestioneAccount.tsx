@@ -10,19 +10,21 @@ export const GestioneAccount = () => {
   const [modificaNome, setModificaNome] = useState(false);
   const [modificaEmail, setModificaEmail] = useState(false);
   const [modificaPassword, setModificaPassword] = useState(false);
+  const [eliminaAccount, setEliminaAccount] = useState(false);
   
 
   const handleModificaNomeClick = () => {
     setModificaNome(true);
     setModificaEmail(false);
     setModificaPassword(false);
-    
+    setEliminaAccount(false);
   };
 
   const handleModificaEmailClick = () => {
     setModificaNome(false);
     setModificaEmail(true);
     setModificaPassword(false);
+    setEliminaAccount(false);
     
   };
 
@@ -30,7 +32,15 @@ export const GestioneAccount = () => {
     setModificaNome(false);
     setModificaEmail(false);
     setModificaPassword(true);
+    setEliminaAccount(false);
     
+  };
+
+  const handleEliminaAccountClick = () => {
+    setModificaNome(false);
+    setModificaEmail(false);
+    setModificaPassword(false);
+    setEliminaAccount(true);
   };
 
 
@@ -46,6 +56,10 @@ export const GestioneAccount = () => {
     setModificaPassword(false);
   };
 
+  const handleCloseEliminaAccount = () => {
+    setEliminaAccount(false);
+  };
+
   
   const logout = () => {
     datiApp.logout();
@@ -59,6 +73,7 @@ export const GestioneAccount = () => {
         <button className='gestioneaccount' onClick={handleModificaNomeClick}>Cambia nome</button>
         <button className='gestioneaccount' onClick={handleModificaEmailClick}>Cambia email</button>
         <button className='gestioneaccount' onClick={handleModificaPasswordClick}>Cambia password</button>
+        <button className='gestioneaccount' onClick={handleEliminaAccountClick}>Elimina Account</button>
         <button className='gestioneaccount' onClick={logout}>Logout</button>
       </div>
 
@@ -66,6 +81,7 @@ export const GestioneAccount = () => {
         {modificaNome && <ModificaNomeForm onClose={handleCloseModificaNome} />}
         {modificaEmail && <ModificaEmailForm onClose={handleCloseModificaEmail}/>}
         {modificaPassword && <ModificaPasswordForm onClose={handleCloseModificaPassword}/>}
+        {eliminaAccount && <EliminaAccountForm onClose={handleEliminaAccountClick}/>}
         
       </div>
     </div>
@@ -100,6 +116,7 @@ const ModificaNomeForm = ({onClose}: Props) => {
         const data = await response.json();
         console.log('Modifica effettuata con successo:', data);
         datiApp.account.nome = nuovoNome;
+        datiApp.setAccount(datiApp.account); 
       } else {
         const errorData = await response.json();
         console.error('Errore durante la modifica:', errorData.error);
@@ -120,6 +137,7 @@ const ModificaNomeForm = ({onClose}: Props) => {
 
   return (
     <form onSubmit={handleSubmit}>
+
       <div className='body-form'>
         <label className='label-form'>
           Nuovo Nome
@@ -135,10 +153,14 @@ const ModificaNomeForm = ({onClose}: Props) => {
           <input type="password" className='input-form' value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
       </div>
-      
+
+      <br />
+      <br />
+      <br />
+
       <div className='bottoniera-form'>
-      <button type="submit" className='button-form'>Conferma Modifica</button>
-      <button type='button' className='button-form' onClick={onClose}>Chiudi</button>
+        <button type="submit" className='button-form'>Conferma Modifica</button>
+        <button type='button' className='button-form' onClick={onClose}>Chiudi</button>
       </div>
       
     </form>
@@ -169,6 +191,7 @@ const ModificaEmailForm = ({onClose}:Props) => {
         const data = await response.json();
         console.log('Modifica effettuata con successo:', data);
         datiApp.account.email = nuovaEmail;
+        datiApp.setAccount(datiApp.account);
       } else {
         const errorData = await response.json();
         console.error('Errore durante la modifica:', errorData.error);
@@ -204,6 +227,9 @@ const ModificaEmailForm = ({onClose}:Props) => {
           <input type="password" className='input-form' value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
       </div>
+      <br />
+      <br />
+      <br />
       <div className='bottoniera-form'>
       <button type="submit" className='button-form'>Conferma Modifica</button>
       <button type='button' className='button-form' onClick={onClose}>Chiudi</button>
@@ -270,6 +296,9 @@ const ModificaPasswordForm = ({onClose}: Props) => {
           <input type="password" className='input-form' value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
       </div>
+      <br />
+      <br />
+      <br />
       <div className='bottoniera-form'>
       <button type="submit" className='button-form'>Conferma Modifica</button>
       <button type='button' className='button-form' onClick={onClose}>Chiudi</button>
@@ -280,5 +309,61 @@ const ModificaPasswordForm = ({onClose}: Props) => {
 
 
 
+
+const EliminaAccountForm = ({onClose}: Props) => {
+  const [password, setPassword] = useState('');
+  const datiApp = useAppContext();
+  const navigate = useNavigate();
+
+  const EliminaAccount = async () => {
+    const idUtente = datiApp.account.id;
+    try {
+      const response = await fetch(`${datiApp.serverUrl}/account/elimina/${idUtente}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        datiApp.logout();
+        navigate("/");
+      } else {
+        const errorData = await response.json();
+        console.error('Errore durante l\'eliminazione:', errorData.error);
+      }
+    } catch (error) {
+      console.error('Errore durante la chiamata API:', error);
+    }
+  };
+
+  const handleSubmit = (e : FormEvent) => {
+    e.preventDefault();
+
+    EliminaAccount();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className='body-form'>
+        <p id ='testo-eliminazione-account'>Sei proprio sicuro di voler eliminare il tuo account?</p>
+        <label className='label-form'>
+          Password di conferma
+          <br />
+          <input type="password" className='input-form' value={password} onChange={(e) => setPassword(e.target.value)} />
+        </label>
+      </div>
+
+      <br />
+      <br />
+      <br /><br />
+      
+      <div className='bottoniera-form'>
+        <button type="submit" className='button-form'>Conferma Eliminazione</button>
+        <button type='button' className='button-form' onClick={onClose}>Chiudi</button>
+      </div>
+    </form>
+  );
+};
 
 

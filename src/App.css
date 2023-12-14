@@ -193,13 +193,9 @@ ul {
 #container-form {
   background-color:#1e1e1e;
   border-radius: 10px;
-
-  
- 
   width: 66%;
-  height: 480px;
+  height: 600px;
   text-align:left;
-
 }
 
 .bottoniera-form {
@@ -222,10 +218,8 @@ ul {
   height: 80px;
   border-radius: 15px;
   cursor: pointer;
-  /*remove the button styling*/
   border: none;
   outline: none;
-  /*make the text bolder and bigger*/
   font-weight: bold;
   font-size: 30px;
 
@@ -243,6 +237,7 @@ ul {
   color: white;
   font-size: 20px;
 }
+
 
 .label-form {
   font-size: 30px;
@@ -266,6 +261,10 @@ ul {
   height: 50px;
   font-size: 100%;
   border-radius: 5px;
+}
+
+#testo-eliminazione-account {
+  font-size: 28px;
 }
 
 /*Pagina iniziale ------------------------------------------------------ */

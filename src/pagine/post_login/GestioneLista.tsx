@@ -44,9 +44,6 @@ function GestioneLista() {
       return new Lista("error_id", "ERRORE!", [], new Date);
     }
 
-    
-    
-
     // codice eseguito alla creazione
     if (idListaUrl !== "nuova_lista") {
       setLista(getListaById());
@@ -56,7 +53,6 @@ function GestioneLista() {
 
     // codice eseguito alla distruzione
     return () => {
-      
     }
     
   }, []);
@@ -227,6 +223,27 @@ function GestioneLista() {
       console.log("errore nell\'eliminare la lista: ");
     }
   }
+
+  const eliminaOggettiRecenti = async () => {
+    try {
+      const response = await fetch(`${datiApp.serverUrl}/oggetti/${datiApp.account.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        console.log('oggetti eliminati dal DB');
+        setOggettiPrecedenti([]);
+        datiApp.rimuoviTuttiOggettiInLocale();
+      } else {
+        console.log("oggetti non eliminati");
+      }
+    } catch (error) {
+      console.log("errore nell\'eliminare gli oggetti: ");
+    }
+  }
   
 
   return (
@@ -281,6 +298,7 @@ function GestioneLista() {
           <br />
           <button onClick={salvaLista}>Salva</button>
           <button onClick={eliminaLista}>Elimina</button>
+          <button onClick={eliminaOggettiRecenti}>Elimina autocompletamento oggetti</button>
         </>
         :
         <p>Caricamento...</p>

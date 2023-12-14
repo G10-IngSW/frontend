@@ -110,6 +110,10 @@ function App() {
       setOggettiPrecedenti(newOggetti.filter((ogg:string) => ogg !== o));
     }
 
+    const rimuoviTuttiOggettiInLocale = () => {
+      setOggettiPrecedenti([]);
+    }
+
     const datiApp: DatiApp = new DatiApp(
       "https://fuzzy-erin-drawers.cyclic.app", 
       account, 
@@ -118,10 +122,11 @@ function App() {
       liste, 
       aggiungiListaInLocale,
       rimuoviListaInLocale, 
+      modificaListaInLocale,
       oggettiPrecedenti, 
       aggiungiOggettoInLocale,
       rimuoviOggettoInLocale,
-      modificaListaInLocale,
+      rimuoviTuttiOggettiInLocale,
     );
     
     return (
