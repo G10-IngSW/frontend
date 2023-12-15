@@ -1,14 +1,26 @@
-import { Outlet, Link, useNavigate } from "react-router-dom";
-import Header from "./componenti/Header";
-import DatiApp from "../../classi/DatiApp";
-import { useAppContext } from "../../context";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAppContext } from "../../context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const LayoutApp = () => {
+
+  const [selectedButton, setSelectedButton] = useState<number>(0);
+
+  const getStyle = (idButton: number) => {
+    
+    if (idButton === selectedButton) {
+      return "navbar-button-selected";
+    } else {
+      return "navbar-button";
+    }
+  }
+
   return (
     <>
-      <Header/>
-      <NavBar />
+      <Header setSelectedButton={setSelectedButton} getStyle={getStyle}/>
+      <NavBar setSelectedButton={setSelectedButton} getStyle={getStyle} />
 
       <Outlet />
     </>
@@ -17,16 +29,26 @@ const LayoutApp = () => {
 
 export default LayoutApp;
 
-const NavBar = () => {
+interface Props {
+  setSelectedButton: React.Dispatch<React.SetStateAction<number>>;
+  getStyle: (idButton: number) => string;
+};
+  
+
+const NavBar = ({setSelectedButton,getStyle} : Props) => {
+  
+
+  
   return (
+    
     <nav>
       <ul className="ul-navbar">
         <li className="li-navbar">
-        <NavbarButton route="/" idButton="0">Home</NavbarButton>
+        <NavbarButton route="/" idButton={0} cssClass={getStyle(0)} changeSelectedButton = {setSelectedButton}>Home</NavbarButton>
         </li>
 
         <li className="li-navbar">
-          <NavbarButton route="/liste" idButton="1">Liste</NavbarButton>
+          <NavbarButton route="/liste" idButton={1} cssClass={getStyle(1)} changeSelectedButton = {setSelectedButton}>Liste</NavbarButton>
         </li>
 
 
@@ -35,26 +57,56 @@ const NavBar = () => {
   );
 };
 
-interface Props {
+interface NavbarButtonProps {
   route: string;
   children: string;
-  idButton: string;
+  idButton: number;
+  cssClass: string;
+  changeSelectedButton: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const NavbarButton = ({route, children,idButton}: Props) => {
-
-  const datiApp = useAppContext();
+const NavbarButton = ({route, children,idButton,cssClass,changeSelectedButton}: NavbarButtonProps) => {
   const navigate = useNavigate();
 
   const changeRoute = () => {
     // Se si vuole evitare che si possa cambiare schermata quando si sta modificando
     // una lista e ci sono cambiamenti non salvati, inserire la logica qui
+    changeSelectedButton(idButton);
+
     navigate(route);
   }
 
   return (
-    <button onClick={changeRoute} className="li-navbar-button">
+    <button onClick={changeRoute} className={cssClass}>
       {children}
     </button>
   );
 }
+
+
+
+const Header = ({setSelectedButton} : Props) => {
+
+  const datiApp = useAppContext();
+
+  const navigate = useNavigate();
+
+  const openGestioneAccount = () => {
+    setSelectedButton(-1);
+    navigate('/gestione-account', {replace : true});
+  }
+
+
+   
+  return (
+    <div id='disposizione-header'>
+      <h2 id='Pricepal-title'>Pricepal</h2>
+      <div id='disposizione-accountbutton' onClick={openGestioneAccount} >
+        <h4>{datiApp.account.nome}</h4>
+        <FontAwesomeIcon icon={faUser} id="img-IconaUtente"/>
+      </div>
+    </div>
+  )
+}
+
+

@@ -39,7 +39,7 @@ body {
   align-items: center;
 }
 
-.li-navbar-button {
+.navbar-button {
   background: #1e1e1e;
   border-radius: 10px;
   border: none;
@@ -54,8 +54,27 @@ body {
   cursor: pointer;
 }
 
-.li-navbar-button:hover {
+.navbar-button:hover {
   background: #444348;
+}
+
+.navbar-button-selected {
+  border-radius: 10px;
+  border: none;
+  margin: 3px;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  background: #444348;
+}
+
+.navbar-button-selected:hover {
+  background: #727274;
 }
 
 /* Home, colonna liste recenti ------------------------------ */
