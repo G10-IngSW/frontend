@@ -114,8 +114,9 @@ function App() {
       setOggettiPrecedenti([]);
     }
 
+    // "https://fuzzy-erin-drawers.cyclic.app"
     const datiApp: DatiApp = new DatiApp(
-      "https://fuzzy-erin-drawers.cyclic.app", 
+      "http://localhost:3000", 
       account, 
       setAccountAndUpdateLists, 
       logout, 
