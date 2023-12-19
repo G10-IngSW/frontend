@@ -53,23 +53,25 @@ const Accesso = ({cambiaSchermata}: Props) => {
   };
 
   return (
-    <div>
+    <div className="flexbox-verticale-100">
       <button onClick={() => cambiaSchermata(0)}>indietro</button>
-      <br /> <br />
+      <br />
       
-      <form onSubmit={accedi}>
-      <label>
-        Email:
-        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+    <form onSubmit={accedi}>
+
+      
+      <label className="flexbox-orizztale">
+        <span>{"Email:\t"}</span>
+        <input type="text" value={email} className="input-text" onChange={(e) => setEmail(e.target.value)} />
       </label>
       <br />
       <label>
         Password:
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" value={password} className="input-text" onChange={(e) => setPassword(e.target.value)} />
       </label>
       <br />
       <button type="submit">Accedi</button>
-      <br />
+
     </form>
 
 

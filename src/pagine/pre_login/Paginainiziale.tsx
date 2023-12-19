@@ -7,7 +7,7 @@ const Paginainiziale = ({cambiaSchermata}:Props) => {
 
 
   return (
-    <div>
+    <div className="flexbox-verticale-100">
       <h1 id="titolo-paginainiziale">Pricepal</h1>
       <h4 id="sottotitolo-paginainiziale">Tieni traccia delle tue spese</h4>
       <div id="box-paginainiziale">
