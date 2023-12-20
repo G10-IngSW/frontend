@@ -5,7 +5,6 @@ import { useAppContext } from '../../../context';
 
 
 const Header = () => {
-   
   return (
     <div id='disposizione-header'>
       <h2 id='Pricepal-title'>Pricepal</h2>

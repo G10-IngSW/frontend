@@ -67,48 +67,46 @@ const CreazioneAccount = ({cambiaSchermata}: Props) => {
 
 
   return (
-    <div>
-      <button onClick={() => cambiaSchermata(0)}>indietro</button>
-      <br /> <br />
+    <div className="flexbox-verticale-100">
+     
 
-      Login<br /><br />
+      <form onSubmit={creaAccount}>
+        <label>
+          <span>{"Email:\n"}</span>
+          <br />
+          <input type="text" value={email} className="input-text" onChange={(e) => setEmail(e.target.value)}/>
+        </label>
+        <br />
+        <br />
+        <label>
+          <span>{"Username:\n"}</span>
+          <br />
+          <input type="text" value={username} className="input-text" onChange={(e) => setUsername(e.target.value)}/>
+        </label>
+        <br />
+        <br />
+        <label>
+          <span>{"Password:\n"}</span>
+          <br />
+          <input type="password" value={password} className="input-text" onChange={(e) => setPassword(e.target.value)}/>
+        </label>
+        <br />
+        <br />
+        <label>
+          <span>{"Conferma Password:\n"}</span>
+          <br />
+          <input type="password" value={ripetiPassword} className="input-text" onChange={(e) => setRipetiPassword(e.target.value)}/>
+        </label>
+        <br />
+        <br />
+        <div className="flexbox-orizzontale" id="pulsantiera-accesso">
+          <button className="accesso-button" type="submit">Crea account</button>
+          <button className="accesso-button" onClick={() => cambiaSchermata(0)}>indietro</button>
+        </div>
+      </form>
 
-      Email<br />
-      <input 
-        type="text" 
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-
-      <br /><br />
-
-      Username<br />
-      <input 
-        type="text" 
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-
-      <br /><br />
-
-      Password<br />
-      <input 
-        type="text" 
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <br /><br />
-
-      Ripeti password<br />
-      <input 
-        type="text" 
-        value={ripetiPassword}
-        onChange={(e) => setRipetiPassword(e.target.value)}
-      />
-
-      <br /><br />
-      <button onClick={creaAccount}>Crea account</button>
+      
+      
 
     </div>
   )
