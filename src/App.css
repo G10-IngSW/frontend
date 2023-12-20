@@ -53,6 +53,7 @@ body {
   font-size: 30px;
   background: #444348;
   color: white;
+  padding-left: 5px;
 }
 
 
@@ -379,6 +380,16 @@ ul {
 
 /* Gestione lista -----------------------------------------------------------------------------------*/
 
+.oggetti-precedenti {
+  overflow-y: auto;
+  position: fixed;
+  bottom: 11%;
+  width: 100%;
+  height: 20%;
+  margin: 0;
+  background-color: #1e1e1e;
+}
+
 .auto-completion-item {
   background-color: #1e1e1e;
 }
@@ -387,3 +398,123 @@ ul {
   background-color: #444348;
   cursor: pointer;
 }
+
+.lista-oggetti {
+  overflow-y: auto;
+  height: 30%; 
+}
+
+.lista-oggetti-no-oggetti-precedenti {
+  overflow-y: auto;
+  height: 50%; 
+}
+
+
+
+.rimozione-oggetto-button {
+  border-radius: 10px;
+  border: none;
+  background-color: #444348;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  height: auto;
+}
+
+.rimozione-oggetto-button:hover {
+  background-color: #727274;
+}
+
+#titolo-lista-input {
+  margin-left: 10px;
+}
+
+.quantity-span {
+  font-size: 30px;
+  margin: 0;
+  margin-right: 10px;
+}
+.quantity-button {
+  background: #444348;
+  border-radius: 10px;
+  border: none;
+  margin: 10px;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  font-size: 30px;
+  height: auto;
+  width: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.quantity-button:hover {
+  background: #727274;
+}
+
+.aggiunta-oggetti-bar {
+  position: fixed;
+  bottom: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+}
+
+#aggiungi-button
+{
+  margin-left: 30px;
+  width: auto;
+}
+
+
+
+#barra-titolo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+#disposizione-icone {
+  width: auto;
+  margin-right: 10px;
+}
+
+.icona-salvataggio-eliminazione {
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  cursor: pointer;
+  color: #727274;
+}
+
+.icona-salvataggio-eliminazione:hover {
+  color:white;
+}
+
+.salvataggio-possibile {
+  color: #ff5716;
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.salvataggio-possibile:hover {
+  color:white;
+}
+
+
+
+
+

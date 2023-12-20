@@ -2,6 +2,8 @@ import {useEffect, useState} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Lista from '../../classi/Lista';
 import { useAppContext } from '../../context';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBroom, faFloppyDisk, faTrash } from '@fortawesome/free-solid-svg-icons';
 //import { faColonSign } from '@fortawesome/free-solid-svg-icons';
 
 type ListaDB = {
@@ -31,6 +33,8 @@ function GestioneLista() {
   const {idListaUrl} = useParams();
 
   const datiApp = useAppContext();
+
+  const [modificheEffettuate, setModificheEffettuate] = useState<boolean>(false);
 
 
   useEffect(() => {
@@ -75,6 +79,7 @@ function GestioneLista() {
     if (!(oggettiPrecedenti.includes(item))) {        
       aggiungiOggettoDatabase();
     }
+    setModificheEffettuate(true);
     setTextBarContent("");
     setQuantity(0); 
   }
@@ -85,10 +90,12 @@ function GestioneLista() {
     }
     const newOggetti = [...lista.oggetti.slice(0, i), ...lista.oggetti.slice(i + 1)];
     setLista(new Lista(lista.id, lista.titolo, newOggetti, lista.dataUltimaModifica));
+    setModificheEffettuate(true);
   }
 
   const removeAllItems = () => {
     setLista(new Lista(lista.id, lista.titolo, [], lista.dataUltimaModifica));
+    setModificheEffettuate(true);
   }
 
   const addQuantity = () => {
@@ -191,6 +198,7 @@ function GestioneLista() {
   };
 
   const salvaLista = async () => {
+    setModificheEffettuate(false);
     if (lista.id === "nuova_lista_id") {
       creaLista();
     } else {
@@ -245,60 +253,107 @@ function GestioneLista() {
     }
   }
   
+  //<p>{`${lista.id} ${lista.titolo} ${lista.dataUltimaModifica}`}</p>
+
+  //<button onClick={eliminaOggettiRecenti} >Elimina autocompletamento oggetti</button>
 
   return (
     <>
       {
         mostralista ?
         <>
-          <p>{`${lista.id} ${lista.titolo} ${lista.dataUltimaModifica}`}</p>
+          
 
-          <input 
-            type="text" 
-            value={lista.titolo}
-            onChange={(e) => setLista(new Lista(lista.id, e.target.value, lista.oggetti, lista.dataUltimaModifica))}
-          />
 
-          <br />
-    
-          <button onClick={addQuantity}>+</button>
-          <button onClick={subtractQuantity}>-</button>
-    
-          <span>{`  ${quantity}  `}</span>
-    
-          <input 
-            type="text" 
-            value={textBarContent}
-            onChange={(e) => setTextBarContent(e.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                addItemFromTextBox();
+          <div className="flexbox-orizzontale" id='barra-titolo'>
+            <div>
+              <input 
+                type="text" 
+                value={lista.titolo}
+                className='input-text'
+                id='titolo-lista-input'
+                onChange={(e) => 
+                  {setLista(new Lista(lista.id, e.target.value, lista.oggetti, lista.dataUltimaModifica));
+                    setModificheEffettuate(true);}
+                }
+              />
+            </div>
+
+
+            <div className="flexbox-orizzontale" id='disposizione-icone'>
+
+              {lista.oggetti.length != 0 &&
+                <div><FontAwesomeIcon icon={faBroom} onClick={removeAllItems} id="remove-all-icon" className='icona-salvataggio-eliminazione' /></div>
               }
-            }}
-          />
-          <button onClick={addItemFromTextBox}>Aggiungi</button>
 
-          <br />
+              <FontAwesomeIcon icon={faFloppyDisk} onClick={salvaLista} className={modificheEffettuate ? 'salvataggio-possibile' : 'icona-salvataggio-eliminazione'} />
 
-          <OggettiPrecedenti oggettiPrecedenti={oggettiPrecedenti} filtro={textBarContent} addItem={addItem}/>
+              <FontAwesomeIcon icon={faTrash} onClick={eliminaLista} className='icona-salvataggio-eliminazione' />
+
+            </div>
+            
+
+             
+
+
+          </div>
+
+
+                
     
-          {lista.oggetti.length != 0 &&
-            <div><button onClick={removeAllItems}> Remove all </button></div>
-          }
-    
-          <ul>
+          <ul className= {oggettiPrecedenti.length != 0 ? 'lista-oggetti' : 'lista-oggetti-no-oggetti-precedenti' }>
             {lista.oggetti.map((item:string, index:number) => (
-              <li key={index}>
+              <li key={index} className='oggetto-lista'>
                 {`${item}  `}
-                <button onClick={() => {removeItem(index)}}> x </button>
+                <button className='rimozione-oggetto-button' onClick={() => {removeItem(index)}}> x </button>
               </li>
             ))}
           </ul>
     
-          <br />
-          <button onClick={salvaLista}>Salva</button>
-          <button onClick={eliminaLista}>Elimina</button>
-          <button onClick={eliminaOggettiRecenti}>Elimina autocompletamento oggetti</button>
+          
+
+          {oggettiPrecedenti.length != 0 &&
+          <div className='oggetti-precedenti'>
+            <OggettiPrecedenti oggettiPrecedenti={oggettiPrecedenti} filtro={textBarContent} addItem={addItem}/>
+          </div>}
+
+          
+          
+          
+          
+          
+          <div className="aggiunta-oggetti-bar">
+
+            <div>
+              <button  className="quantity-button" onClick={addQuantity}>+</button>
+              <button className="quantity-button" onClick={subtractQuantity}>-</button>
+        
+              <span className='quantity-span'>{`  ${quantity}  `}</span>
+        
+              <input 
+                type="text" 
+                value={textBarContent}
+                className='input-text'
+                onChange={(e) => setTextBarContent(e.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter') {
+                    addItemFromTextBox();
+                  }
+                }}
+              />
+            </div>
+            
+
+            
+      
+            <div>
+              {oggettiPrecedenti.length != 0 &&
+                <button onClick={eliminaOggettiRecenti} className="quantity-button" id='aggiungi-button'>Rimuovi Oggetti Recenti</button>
+              }
+              <button className="quantity-button" id='aggiungi-button' onClick={addItemFromTextBox}>Aggiungi</button>
+            </div>
+            
+          </div>
         </>
         :
         <p>Caricamento...</p>
