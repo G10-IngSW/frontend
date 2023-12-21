@@ -211,6 +211,12 @@ function GestioneLista() {
   }
 
   const eliminaLista = async () => {
+    
+    if (lista.id == "nuova_lista_id") {
+      navigate("/");
+      return;
+    }
+
     try {
       const response = await fetch(`${datiApp.serverUrl}/liste/${lista.id}`, {
         method: 'DELETE',
