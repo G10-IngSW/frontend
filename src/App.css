@@ -197,7 +197,7 @@ header {
 }
 
 ul {
-  /* Remove default list styling */
+ 
   list-style-type: none;
   padding: 0;
 }
@@ -205,7 +205,7 @@ ul {
 /*header styling*/
 
 #Pricepal-title {
-  /*font color orange*/
+  
   color: #ff5716;
   font-size: 40px;
 
@@ -264,7 +264,7 @@ ul {
 }
 
 .gestioneaccount:hover {
-  color: white;
+  color: #9a9ba0;
 }
 
 

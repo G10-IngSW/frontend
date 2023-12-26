@@ -4,7 +4,7 @@ import Lista from '../../classi/Lista';
 import { useAppContext } from '../../context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBroom, faFloppyDisk, faTrash } from '@fortawesome/free-solid-svg-icons';
-//import { faColonSign } from '@fortawesome/free-solid-svg-icons';
+
 
 type ListaDB = {
   _id:string, 
@@ -259,9 +259,7 @@ function GestioneLista() {
     }
   }
   
-  //<p>{`${lista.id} ${lista.titolo} ${lista.dataUltimaModifica}`}</p>
-
-  //<button onClick={eliminaOggettiRecenti} >Elimina autocompletamento oggetti</button>
+  
 
   return (
     <>

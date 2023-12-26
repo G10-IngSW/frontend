@@ -69,8 +69,7 @@ const NavbarButton = ({route, children,idButton,cssClass,changeSelectedButton}: 
   const navigate = useNavigate();
 
   const changeRoute = () => {
-    // Se si vuole evitare che si possa cambiare schermata quando si sta modificando
-    // una lista e ci sono cambiamenti non salvati, inserire la logica qui
+    
     changeSelectedButton(idButton);
 
     navigate(route);

@@ -9,7 +9,7 @@ const Home = () => {
 
   const datiApp = useAppContext();
 
-  //most sane javascript logic NON TOCCARE
+  
   
   const listeRecenti = datiApp.liste
   .sort((a : Lista, b : Lista) => new Date(b.dataUltimaModifica).getTime() - new Date(a.dataUltimaModifica).getTime())
@@ -42,5 +42,3 @@ const Home = () => {
 export default Home
 
 
-
-// `/gestione-lista/${"nuova_lista"}`
