@@ -82,6 +82,12 @@ body {
   background: #727274;
 }
 
+#form-grigio {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 10px;
+}
+
 
 /* Navbar --------------------------------------- */
 
@@ -206,7 +212,6 @@ ul {
 }
 
 #disposizione-header {
-  /*disponi i due elementi del div orizzontalmente ai lati opposti dello schermo*/
   background-color: #1e1e1e;
   display: flex;
   justify-content: space-between;
@@ -230,7 +235,6 @@ ul {
 }
 
 #img-IconaUtente {
-  /*dimensione icona utente*/
   width: 35px;
   height: 35px;
   margin-left: 10px;
@@ -238,74 +242,92 @@ ul {
 
 /*gestione account*/
 
-.container-gestioneaccount {
-  /*put the box on the left*/
-  margin: auto;
-  margin-left: 0px;
-  
-  width: 33%;
-  text-align: center;
-  background-color:#1e1e1e;
-  border-radius: 10px;
-}
+
 
 .gestioneaccount {
- /*copia lo stile di button-paginainiziale*/
-  background-color: #444348;
-  color: white;
-  padding: 0px;
-  text-align: center;
+
+  background-color: black;
+  color:#444348;
+  padding: 10px 0px 10px 0px;
+  text-align: left;
   margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 70%;
-  height: 80px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: auto;
   border-radius: 15px;
   cursor: pointer;
-  /*remove the button styling*/
   border: none;
   outline: none;
-  /*make the text bolder and bigger*/
   font-weight: bold;
   font-size: 30px;
 }
 
 .gestioneaccount:hover {
-  background-color: #727274;
+  color: white;
 }
 
-#container-form {
-  background-color:#1e1e1e;
-  border-radius: 10px;
-  width: 66%;
-  height: 600px;
-  text-align:left;
+
+.gestione-account-attivo {
+  background-color: black;
+  color: white;
+  padding: 10px 0px 10px 0px;
+  text-align: left;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  font-size: 30px;
 }
+
+
+.form-gestioneaccount {
+  margin:0;
+  margin-right: 15%;
+  margin-left: 5%; 
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 10px;
+  width: 100%;
+}
+
+#testo-eliminazione-account {
+  margin: 0;
+  
+}
+
 
 .bottoniera-form {
   display: flex;
   justify-content: space-between;
   align-items: bottom;
-  padding: 10px;
+  padding:0;
+  padding-top: 20px;
   cursor: pointer;
 }
 
 .button-form {
   background-color: #444348;
   color: white;
-  padding: 0px;
+  padding: 5px;
   text-align: center;
   margin: 20px;
-  margin-top: 150px;
+  
   margin-bottom: 20px;
   width: 50%;
-  height: 80px;
+  height: auto;
   border-radius: 15px;
   cursor: pointer;
   border: none;
   outline: none;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 20px;
 
 }
 
@@ -313,43 +335,32 @@ ul {
   background-color: #727274;
 }
 
-.body-form {
-  padding: 10px;
-  margin: 10px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  color: white;
-  font-size: 20px;
-}
 
 
-.label-form {
-  font-size: 30px;
-  border-radius: 2px;
-  font-size: large;
-  text-align: left;
 
-}
+
 
 #disposizione-orizzontale-gestioneaccount {
-  /*disponi i due elementi del div orizzontalmente ai lati opposti dello schermo*/
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  color: #9a9ba0;
+  padding: 0px;
+  padding-top: 20px;
+  margin: 0;
+  margin-left: 10px;
 }
 
-.input-form {
-  width: 80%;
-  height: 50px;
-  font-size: 100%;
-  border-radius: 5px;
+#disposizione-centrale {
+  display:flex;
+  justify-content: left;
+  align-items: center;
+  padding: 0px;
+  padding-top: 20px;
+  margin: 0;
+  margin-left: 10px;
 }
 
-#testo-eliminazione-account {
-  font-size: 28px;
-}
+
 
 /*Pagina iniziale ------------------------------------------------------ */
 

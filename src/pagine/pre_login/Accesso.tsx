@@ -53,10 +53,10 @@ const Accesso = ({cambiaSchermata}: Props) => {
   };
 
   return (
-    <div className="flexbox-verticale-100">
+    <div className="flexbox-verticale-100" >
       
       
-    <form onSubmit={accedi}>
+    <form onSubmit={accedi} id="form-grigio">
 
       
       <label >

@@ -67,10 +67,10 @@ const CreazioneAccount = ({cambiaSchermata}: Props) => {
 
 
   return (
-    <div className="flexbox-verticale-100">
+    <div className="flexbox-verticale-100" >
      
 
-      <form onSubmit={creaAccount}>
+      <form onSubmit={creaAccount} id="form-grigio">
         <label>
           <span>{"Email:\n"}</span>
           <br />
