@@ -116,7 +116,7 @@ function App() {
 
     // "https://fuzzy-erin-drawers.cyclic.app"
     const datiApp: DatiApp = new DatiApp(
-      "http://localhost:3000", 
+      "https://wild-ray-kimono.cyclic.app/", 
       account, 
       setAccountAndUpdateLists, 
       logout, 
