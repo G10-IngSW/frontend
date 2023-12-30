@@ -2,8 +2,8 @@
 
 ## Frontend su ???
 
-Il nostro frontend è attualmente hostato su ??? e può essere accessibile al seguente link:
-[link]()
+Il nostro frontend è attualmente hostato su Hostinger e può essere accessibile al seguente link:
+[Pricepal frontend](https://pricepal.m68ago.net)
 
 ## Come Eseguire il Progetto Localmente
 
