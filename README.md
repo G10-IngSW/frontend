@@ -1,6 +1,6 @@
 # PricePal frontend
 
-## Frontend su ???
+## Frontend su Hostinger
 
 Il nostro frontend è attualmente hostato su Hostinger e può essere accessibile al seguente link:
 [Pricepal frontend](https://pricepal.m68ago.net)
