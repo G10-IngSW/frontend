@@ -114,7 +114,8 @@ function App() {
       setOggettiPrecedenti([]);
     }
 
-    // "https://fuzzy-erin-drawers.cyclic.app"
+    // "https://wild-ray-kimono.cyclic.app/"
+    // "http://localhost:3000"
     const datiApp: DatiApp = new DatiApp(
       "https://wild-ray-kimono.cyclic.app/", 
       account, 

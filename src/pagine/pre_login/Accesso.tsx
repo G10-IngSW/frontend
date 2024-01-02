@@ -46,9 +46,15 @@ const Accesso = ({cambiaSchermata}: Props) => {
         datiApp.setAccount(resultAccount);
       } else {
         console.log("NOT OK!, response = ", response);
+        window.alert("Errore: credenziali errate");
+        setEmail("");
+        setPassword("");
       }
     } catch (error) {
       console.error(error);
+      window.alert("Errore nel login: riprova");
+      setEmail("");
+      setPassword("");
     }
   };
 
